@@ -1,5 +1,6 @@
 # Terraframe — AI-Powered Impact & Sustainability Media Platform
 
+> **Live Demo:** [**https://terraframe-kappa.vercel.app**](https://terraframe-kappa.vercel.app/)  
 > **Hackathon:** Code Cubicle 6 — Problem Statement 02 (Cloudinary Track)  
 > **Mission:** Transforming raw field photos and videos from environmental initiatives into verified evidence, measurable impact, and compelling visual stories.
 
