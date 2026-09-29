@@ -17,6 +17,7 @@ import { AssetDetailModal } from '@/components/AssetDetailModal';
 import { IngestModal } from '@/components/IngestModal';
 import { ReportModal } from '@/components/ReportModal';
 import { MapView } from '@/components/MapView';
+import { Footer } from '@/components/Footer';
 import { 
   Sparkles, 
   Cloud, 
@@ -424,21 +425,12 @@ export default function Home() {
         )}
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-slate-200 bg-white py-6 mt-12 text-xs text-slate-500">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <span className="font-bold text-slate-800">Terraframe AI</span>
-            <span>•</span>
-            <span>Code Cubicle 6 Hackathon — Problem Statement 02 (Cloudinary Track)</span>
-          </div>
-          <div className="flex items-center gap-4 text-slate-600">
-            <span>Clean Light Design System</span>
-            <span>•</span>
-            <span className="font-mono text-[11px] text-emerald-700 font-semibold">100% Provenance Traceability</span>
-          </div>
-        </div>
-      </footer>
+      {/* Good Fella Inspired Footer */}
+      <Footer
+        onNavigateTab={setActiveTab}
+        onOpenIngestModal={() => setIsIngestModalOpen(true)}
+        onOpenReportModal={() => setIsReportModalOpen(true)}
+      />
 
       {/* Modals */}
       <AssetDetailModal
