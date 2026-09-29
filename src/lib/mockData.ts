@@ -1,5 +1,12 @@
 import { ImpactProject, EvidenceAsset, ComparisonPair, ESGAuditReport } from '@/types';
-import { getGalleryThumbnail, getHeroBanner, getWatermarkedProof } from './cloudinary';
+import { 
+  getGalleryThumbnail, 
+  getHeroBanner, 
+  getWatermarkedProof, 
+  getVideoWatermarked, 
+  getVideoAnimatedPreview, 
+  getAudioWaveformUrl 
+} from './cloudinary';
 
 export const INITIAL_PROJECTS: ImpactProject[] = [
   {
@@ -97,6 +104,75 @@ export const INITIAL_PROJECTS: ImpactProject[] = [
 ];
 
 export const INITIAL_EVIDENCE: EvidenceAsset[] = [
+  // Video Evidence 1: Sundarbans Drone Aerial Video
+  {
+    id: 'ev-sundarbans-video-01',
+    projectId: 'proj-sundarbans',
+    projectName: 'Sundarbans Coastal Mangrove Restoration',
+    title: 'Autonomous Drone 4K Aerial Video Transect',
+    description: 'Autonomous DJI Enterprise drone flyover recording 1,840 hectares of contiguous mangrove root development with synchronized audio telemetry.',
+    originalFileName: 'DJI_20250918_AERIAL_TRANSECT_ZONE4.MP4',
+    sha256Hash: '7a18f4c20b9e812d3340f1a92e8b417c8d9e2b10a24f0c9782163b784a9e229d',
+    milestoneType: 'milestone_achieved',
+    status: 'verified',
+    telemetry: {
+      capturedAt: '2025-09-18T10:14:00Z',
+      uploadedAt: '2025-09-18T12:05:30Z',
+      gps: {
+        latitude: 21.9510,
+        longitude: 88.9012,
+        altitudeMeters: 45.0,
+        locationName: 'Gosaba Sector 4B Delta Flightpath',
+        region: 'South 24 Parganas',
+        country: 'India'
+      },
+      device: {
+        make: 'DJI Enterprise RTK',
+        model: 'Mavic 3 Thermal / Multispectral',
+        lens: '24mm Hasselblad 4K/60fps',
+        iso: 100,
+        focalLength: '24mm'
+      },
+      isExifVerified: true
+    },
+    cloudinary: {
+      publicId: 'sundarbans_drone_aerial_transect_2025',
+      cloudName: 'terraframe-demo',
+      secureUrl: 'https://images.unsplash.com/photo-1544979590-37e9b47eb705?auto=format&fit=crop&w=1200&q=80',
+      thumbnailUrl: getGalleryThumbnail('https://images.unsplash.com/photo-1544979590-37e9b47eb705?auto=format&fit=crop&w=1200&q=80'),
+      watermarkedUrl: getVideoWatermarked('https://res.cloudinary.com/demo/video/upload/samples/sea-turtle.mp4', 'TERRAFRAME • VERIFIED DRONE FLYOVER'),
+      smartCroppedUrl: getHeroBanner('https://images.unsplash.com/photo-1544979590-37e9b47eb705?auto=format&fit=crop&w=1200&q=80'),
+      videoStreamUrl: 'https://res.cloudinary.com/demo/video/upload/c_fill,w_960,h_540/samples/sea-turtle.mp4',
+      animatedPreviewUrl: getVideoAnimatedPreview('https://res.cloudinary.com/demo/video/upload/samples/sea-turtle.mp4'),
+      durationSeconds: 18,
+      audioTrackDetected: true,
+      audioWaveformUrl: 'https://res.cloudinary.com/demo/video/upload/fl_waveform,co_rgb:059669,b_rgb:F8FAFC,w_800,h_150/samples/sea-turtle.png',
+      format: 'mp4',
+      width: 3840,
+      height: 2160,
+      resourceType: 'video',
+      bytes: 28400000
+    },
+    aiAnalysis: {
+      sdgGoals: [13, 14, 15],
+      confidenceScore: 0.98,
+      domainCategory: 'Reforestation',
+      detectedObjects: [
+        { label: 'Rhizophora Prop Root Network', count: 44, confidence: 0.96 },
+        { label: 'Estuarine Tidal Channel', count: 2, confidence: 0.94 },
+        { label: 'Avian Bio-Acoustic Acoustic Signature', count: 6, confidence: 0.89 }
+      ],
+      environmentalSignals: [
+        'High-density canopy canopy closure (+3,600% vs baseline)',
+        'Active sediment baffling along intertidal banks',
+        'Soundscape shows bird species recolonization'
+      ],
+      tags: ['drone_video', '4k_surveillance', 'telemetry_verified', 'soundscape_audio'],
+      aiNarrative: 'Drone aerial surveillance scan confirms dense multi-tier canopy development across Sector 4B. Bio-acoustic hydrophone and microphone streams detect return of migratory kingfisher and mudskipper activity.',
+      authenticityScore: 99,
+      apparentTampering: false
+    }
+  },
   // Pair 1: Sundarbans Baseline (Before)
   {
     id: 'ev-sundarbans-01-before',

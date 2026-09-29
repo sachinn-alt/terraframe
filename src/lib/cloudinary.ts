@@ -1,7 +1,7 @@
 /**
  * Cloudinary Dynamic Media URL Builder & Pipeline Helpers
- * Inspired by Cloudinary Community Photocrate architecture
- * Leverages Cloudinary's dynamic CDN transformations for environmental media.
+ * Inspired by Cloudinary Community Photocrate & Video Processing Pipelines
+ * Leverages Cloudinary's dynamic CDN transformations for Image, Video, and Audio.
  */
 
 const DEFAULT_CLOUD_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || 'terraframe-demo';
@@ -11,22 +11,30 @@ export interface TransformationOptions {
   height?: number;
   crop?: 'fill' | 'fit' | 'thumb' | 'scale' | 'pad';
   gravity?: 'auto' | 'center' | 'faces' | 'north' | 'south';
-  aspectRatio?: '16:9' | '4:3' | '1:1' | '21:9';
+  aspectRatio?: '16:9' | '4:3' | '1:1' | '21:9' | '9:16';
   quality?: 'auto' | number;
-  format?: 'auto' | 'webp' | 'avif' | 'jpg' | 'png';
+  format?: 'auto' | 'webp' | 'avif' | 'jpg' | 'png' | 'mp4' | 'webm';
   watermarkText?: string;
   effect?: string;
   restore?: boolean;
   improve?: boolean;
   removeBackground?: boolean;
+  recolor?: {
+    prompt: string;
+    toColor: string;
+  };
+  fadeMs?: number;
+  startOffset?: number;
+  duration?: number;
 }
 
 /**
- * Builds a dynamic Cloudinary transformation URL from a public ID or remote image
+ * Builds a dynamic Cloudinary transformation URL from a public ID or remote asset
  */
 export function buildCloudinaryUrl(
   publicIdOrUrl: string,
-  options: TransformationOptions = {}
+  options: TransformationOptions = {},
+  resourceType: 'image' | 'video' = 'image'
 ): string {
   const isHttp = publicIdOrUrl.startsWith('http://') || publicIdOrUrl.startsWith('https://');
 
@@ -43,11 +51,15 @@ export function buildCloudinaryUrl(
     restore,
     improve,
     removeBackground,
+    recolor,
+    fadeMs,
+    startOffset,
+    duration,
   } = options;
 
   const transformations: string[] = [];
 
-  // Photocrate AI Enhancements
+  // 1. Generative AI & Visual Enhancements (Cloudinary AI suite)
   if (removeBackground) {
     transformations.push('e_background_removal');
   }
@@ -57,8 +69,23 @@ export function buildCloudinaryUrl(
   if (improve) {
     transformations.push('e_improve');
   }
+  if (recolor) {
+    // Generative Recolor demonstrated in Founder Q&A (e.g. e_gen_recolor:prompt_vegetation;to-color_059669)
+    transformations.push(`e_gen_recolor:prompt_${encodeURIComponent(recolor.prompt)};to-color_${recolor.toColor}`);
+  }
 
-  // Cropping and Sizing
+  // 2. Video Fades & Trimming
+  if (fadeMs) {
+    transformations.push(`e_fade:${fadeMs}`);
+  }
+  if (startOffset !== undefined) {
+    transformations.push(`so_${startOffset}`);
+  }
+  if (duration !== undefined) {
+    transformations.push(`du_${duration}`);
+  }
+
+  // 3. Cropping and Sizing
   if (aspectRatio) {
     transformations.push(`ar_${aspectRatio}`);
   }
@@ -75,16 +102,16 @@ export function buildCloudinaryUrl(
     transformations.push(`h_${height}`);
   }
 
-  // Format & Quality optimization (Cloudinary best practice)
+  // 4. Optimization (f_auto, q_auto)
   transformations.push(`f_${format}`);
   transformations.push(`q_${quality}`);
 
-  // Visual Effects
+  // 5. Additional Visual Effects
   if (effect) {
     transformations.push(`e_${effect}`);
   }
 
-  // Verification Watermark Overlay
+  // 6. Dynamic Watermark Overlay
   if (watermarkText) {
     const encodedText = encodeURIComponent(watermarkText);
     transformations.push(
@@ -95,13 +122,17 @@ export function buildCloudinaryUrl(
   const transformString = transformations.join(',');
 
   if (isHttp) {
-    return `https://res.cloudinary.com/${DEFAULT_CLOUD_NAME}/image/fetch/${transformString}/${encodeURIComponent(
+    return `https://res.cloudinary.com/${DEFAULT_CLOUD_NAME}/${resourceType}/fetch/${transformString}/${encodeURIComponent(
       publicIdOrUrl
     )}`;
   }
 
-  return `https://res.cloudinary.com/${DEFAULT_CLOUD_NAME}/image/upload/${transformString}/${publicIdOrUrl}`;
+  return `https://res.cloudinary.com/${DEFAULT_CLOUD_NAME}/${resourceType}/upload/${transformString}/${publicIdOrUrl}`;
 }
+
+// -------------------------------------------------------------
+// Image Transformation Presets
+// -------------------------------------------------------------
 
 export function getGalleryThumbnail(sourceUrl: string): string {
   return buildCloudinaryUrl(sourceUrl, {
@@ -157,6 +188,15 @@ export function getAiRestoredAsset(sourceUrl: string): string {
   });
 }
 
+export function getAiRecoloredAsset(sourceUrl: string, prompt: string, toColorHex: string): string {
+  return buildCloudinaryUrl(sourceUrl, {
+    width: 1000,
+    recolor: { prompt, toColor: toColorHex },
+    quality: 'auto',
+    format: 'auto',
+  });
+}
+
 export function getAiIsolatedSubject(sourceUrl: string): string {
   return buildCloudinaryUrl(sourceUrl, {
     width: 1000,
@@ -164,4 +204,73 @@ export function getAiIsolatedSubject(sourceUrl: string): string {
     quality: 'auto',
     format: 'auto',
   });
+}
+
+// -------------------------------------------------------------
+// Video & Audio Pipeline Helpers (Highlighted in Founders Q&A)
+// -------------------------------------------------------------
+
+/**
+ * Transforms landscape drone field video to a 1:1 square video with subject auto-tracking and fade effect.
+ */
+export function getVideoSquareFade(videoUrl: string): string {
+  return buildCloudinaryUrl(
+    videoUrl,
+    {
+      width: 720,
+      height: 720,
+      aspectRatio: '1:1',
+      crop: 'fill',
+      gravity: 'auto',
+      fadeMs: 1000,
+      format: 'mp4',
+      quality: 'auto',
+    },
+    'video'
+  );
+}
+
+/**
+ * Adds cryptographic verification watermark overlay to drone surveillance video
+ */
+export function getVideoWatermarked(videoUrl: string, text: string = 'TERRAFRAME • VERIFIED DRONE TRANSECT'): string {
+  return buildCloudinaryUrl(
+    videoUrl,
+    {
+      width: 1080,
+      quality: 'auto',
+      format: 'mp4',
+      watermarkText: text,
+    },
+    'video'
+  );
+}
+
+/**
+ * Generates lightweight animated preview snippet (animated WebP) from a video
+ */
+export function getVideoAnimatedPreview(videoUrl: string): string {
+  return buildCloudinaryUrl(
+    videoUrl,
+    {
+      width: 600,
+      aspectRatio: '16:9',
+      crop: 'fill',
+      gravity: 'auto',
+      startOffset: 1,
+      duration: 3,
+      format: 'webp',
+      quality: 'auto',
+    },
+    'video'
+  );
+}
+
+/**
+ * Audio / Bio-acoustic waveform visualization URL generator
+ */
+export function getAudioWaveformUrl(audioOrVideoUrl: string): string {
+  return `https://res.cloudinary.com/${DEFAULT_CLOUD_NAME}/video/upload/fl_waveform,co_rgb:059669,b_rgb:F8FAFC,w_800,h_150/${encodeURIComponent(
+    audioOrVideoUrl
+  )}.png`;
 }

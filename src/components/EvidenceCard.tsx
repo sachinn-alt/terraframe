@@ -52,13 +52,22 @@ export const EvidenceCard: React.FC<EvidenceCardProps> = ({
         {/* Top Badges */}
         <div className="absolute top-3 left-3 right-3 flex items-center justify-between pointer-events-none">
           {/* Milestone Tag */}
-          <span className={`px-2.5 py-1 rounded-md text-[11px] font-bold shadow-2xs tracking-tight uppercase pointer-events-auto ${
-            asset.milestoneType === 'baseline'
-              ? 'bg-slate-900/90 text-white'
-              : 'bg-emerald-600/95 text-white'
-          }`}>
-            {asset.milestoneType === 'baseline' ? 'Baseline' : 'Milestone Achieved'}
-          </span>
+          <div className="flex items-center gap-1.5">
+            <span className={`px-2.5 py-1 rounded-md text-[11px] font-bold shadow-2xs tracking-tight uppercase pointer-events-auto ${
+              asset.milestoneType === 'baseline'
+                ? 'bg-slate-900/90 text-white'
+                : 'bg-emerald-600/95 text-white'
+            }`}>
+              {asset.milestoneType === 'baseline' ? 'Baseline' : 'Milestone Achieved'}
+            </span>
+
+            {asset.cloudinary.resourceType === 'video' && (
+              <span className="px-2 py-1 rounded-md text-[10px] font-bold bg-slate-900/90 text-emerald-300 shadow-2xs flex items-center gap-1 pointer-events-auto backdrop-blur-xs">
+                <span>▶ Video</span>
+                {asset.cloudinary.durationSeconds && <span>{asset.cloudinary.durationSeconds}s</span>}
+              </span>
+            )}
+          </div>
 
           {/* SDG Badge */}
           <span className={`px-2.5 py-1 rounded-md text-[11px] font-semibold border shadow-2xs pointer-events-auto backdrop-blur-md bg-white/95 ${sdgConfig.text} ${sdgConfig.bg}`}>
@@ -75,6 +84,11 @@ export const EvidenceCard: React.FC<EvidenceCardProps> = ({
           <div className="flex items-center gap-1 text-slate-300">
             <Camera className="w-3 h-3" />
             <span>{asset.telemetry.device.make}</span>
+            {asset.cloudinary.audioTrackDetected && (
+              <span className="ml-1 text-[9px] px-1 py-0.2 bg-emerald-700/80 text-white rounded font-mono">
+                Acoustic
+              </span>
+            )}
           </div>
         </div>
       </div>

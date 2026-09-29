@@ -37,10 +37,16 @@ export interface CloudinaryAssetMeta {
   thumbnailUrl: string;
   watermarkedUrl: string;
   smartCroppedUrl: string;
+  recoloredUrl?: string;
+  videoStreamUrl?: string;
+  animatedPreviewUrl?: string;
+  durationSeconds?: number;
+  audioTrackDetected?: boolean;
+  audioWaveformUrl?: string;
   format: string;
   width: number;
   height: number;
-  resourceType: 'image' | 'video';
+  resourceType: 'image' | 'video' | 'audio';
   bytes: number;
 }
 

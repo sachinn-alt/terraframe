@@ -40,13 +40,29 @@ Unlike typical AI projects with dark backgrounds and generic purple/black neon g
 
 ---
 
-## 🛠️ Documentation Quick Links
+## 🛠️ Documentation Suite
 
+* [**CLOUDINARY.md**](./CLOUDINARY.md): **Deep Cloudinary Media Pipeline Integration Guide** (Image, Video, Audio, Generative AI).
 * [**PRD.md**](./PRD.md): Product Requirements Document, user personas, functional requirements.
 * [**TRD.md**](./TRD.md): Technical Requirements Document, system architecture, data models, Cloudinary integration.
 * [**DESIGN.md**](./DESIGN.md): Light theme design system, color tokens, typography, component guidelines.
 * [**AGENTS.md**](./AGENTS.md): Multi-agent pipeline specifications, autonomous roles, and orchestration.
 * [**LLM.md**](./LLM.md): LLM multimodal prompts, JSON schemas, provider fallbacks.
+
+---
+
+## 🏆 Cloudinary Hackathon Challenge Alignment (Founders Q&A)
+
+Terraframe is engineered specifically to address every priority emphasized in the Cloudinary Founders Q&A:
+
+1. **Beyond Storage — Programmable Media Pipeline:** Rather than treating Cloudinary as static storage, Terraframe executes real-time URL transformations (`f_auto, q_auto`, `c_fill, g_auto`, `l_text` watermark overlays).
+2. **Multi-Modal Pipelines (Image, Video, Audio):**
+   * **Image:** Dynamic smart focal crops, proof watermark badges, and side-by-side delta calculations.
+   * **Video:** Transforms 16:9 drone surveillance into 1:1 square video with subject auto-tracking and 1-second fade (`ar_1:1,c_fill,g_auto,e_fade:1000`), plus animated WebP preview generation (`fl_awebp`).
+   * **Audio / Bio-Acoustics:** Renders acoustic soundscape waveforms (`fl_waveform`) from field audio and hydrophone feeds.
+3. **Generative AI Functions:** Implements `e_gen_restore`, `e_gen_recolor` (e.g. canopy chlorophyll health recoloring), `e_improve`, and `e_background_removal`.
+4. **Social Good / Environmental Impact:** Focuses on UN Sustainable Development Goals (SDG 6, 7, 13, 14, 15) across global ecological projects—the explicit preferred direction highlighted by Cloudinary organizers.
+5. **Developer Community Tools:** Powered by `@cloudinary-community/next-cloudinary` (`CldUploadButton`), Cloudinary Node.js SDK (v2), and Next.js 15 App Router.
 
 ---
 
