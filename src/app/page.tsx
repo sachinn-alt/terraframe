@@ -13,9 +13,11 @@ import { StatsBanner } from '@/components/StatsBanner';
 import { BeforeAfterSlider } from '@/components/BeforeAfterSlider';
 import { EvidenceCard } from '@/components/EvidenceCard';
 import { ProjectFilter } from '@/components/ProjectFilter';
+import { CountryDirectoryGrid } from '@/components/CountryDirectoryGrid';
 import { AssetDetailModal } from '@/components/AssetDetailModal';
 import { IngestModal } from '@/components/IngestModal';
 import { ReportModal } from '@/components/ReportModal';
+import { QRVerifierModal } from '@/components/QRVerifierModal';
 import { MapView } from '@/components/MapView';
 import { Footer } from '@/components/Footer';
 import { 
@@ -42,16 +44,25 @@ export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedMilestone, setSelectedMilestone] = useState<string>('all');
   const [selectedSdg, setSelectedSdg] = useState<number | 'all'>('all');
+  const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
 
   // Modals State
   const [selectedAsset, setSelectedAsset] = useState<EvidenceAsset | null>(null);
   const [isIngestModalOpen, setIsIngestModalOpen] = useState<boolean>(false);
   const [isReportModalOpen, setIsReportModalOpen] = useState<boolean>(false);
+  const [isQRModalOpen, setIsQRModalOpen] = useState<boolean>(false);
   const [selectedComparisonPairId, setSelectedComparisonPairId] = useState<string>(comparisons[0]?.id || '');
 
   // Filtered Evidence Assets
   const filteredEvidence = useMemo(() => {
     return evidence.filter((asset) => {
+      // Country Filter
+      if (selectedCountry) {
+        if (asset.telemetry.gps.country !== selectedCountry) {
+          return false;
+        }
+      }
+
       // Search matching across title, description, tags, narrative, location
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase();
@@ -59,9 +70,10 @@ export default function Home() {
         const matchDesc = asset.description.toLowerCase().includes(q);
         const matchProject = asset.projectName.toLowerCase().includes(q);
         const matchLocation = asset.telemetry.gps.locationName.toLowerCase().includes(q);
+        const matchCountry = asset.telemetry.gps.country.toLowerCase().includes(q);
         const matchTags = asset.aiAnalysis.tags.some(t => t.toLowerCase().includes(q));
         const matchObjects = asset.aiAnalysis.detectedObjects.some(o => o.label.toLowerCase().includes(q));
-        if (!matchTitle && !matchDesc && !matchProject && !matchLocation && !matchTags && !matchObjects) {
+        if (!matchTitle && !matchDesc && !matchProject && !matchLocation && !matchCountry && !matchTags && !matchObjects) {
           return false;
         }
       }
@@ -90,7 +102,7 @@ export default function Home() {
 
       return true;
     });
-  }, [evidence, searchQuery, selectedCategory, selectedMilestone, selectedSdg, projects]);
+  }, [evidence, searchQuery, selectedCategory, selectedMilestone, selectedSdg, selectedCountry, projects]);
 
   const handleAssetIngested = (newAsset: EvidenceAsset) => {
     setEvidence(prev => [newAsset, ...prev]);
@@ -211,6 +223,17 @@ export default function Home() {
               totalComparisons={comparisons.length}
             />
 
+            {/* Wise 5-Column Global Country Project Directory Grid */}
+            <CountryDirectoryGrid
+              selectedCountry={selectedCountry}
+              onSelectCountry={(country, category) => {
+                setSelectedCountry(country);
+                if (category) {
+                  setSelectedCategory(category);
+                }
+              }}
+            />
+
             {/* Featured Before/After Studio wrapped in Wise Dark Section Card (28px radius Forest Ink) */}
             <div className="bg-[#163300] text-white rounded-[28px] p-6 sm:p-10 mb-10">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
@@ -227,7 +250,7 @@ export default function Home() {
                     Interactive Before & After Verification
                   </h2>
                   <p className="text-sm sm:text-base text-white/90 mt-1 max-w-2xl">
-                    Inspect ecological progress across verified projects. Slide horizontally to view quantified deltas and cryptographic tamper-proof overlays.
+                    Inspect ecological progress across verified projects. Toggle split sliders, side-by-side mode, or dissolve faders to view quantified deltas.
                   </p>
                 </div>
                 <button
@@ -251,19 +274,21 @@ export default function Home() {
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
                   <CheckCircle className="w-5 h-5 text-[#163300]" />
-                  <h2 className="text-xl font-bold text-[#0e0f0c] font-sans">Recent Verified Field Media</h2>
+                  <h2 className="text-xl font-bold text-[#0e0f0c] font-sans">
+                    {selectedCountry ? `Verified Field Media — ${selectedCountry}` : 'Recent Verified Field Media'}
+                  </h2>
                 </div>
                 <button
                   onClick={() => setActiveTab('gallery')}
                   className="text-xs font-semibold text-[#163300] hover:underline flex items-center gap-1 cursor-pointer"
                 >
-                  <span>View full repository ({evidence.length})</span>
+                  <span>View full repository ({filteredEvidence.length})</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </button>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                {evidence.slice(0, 4).map((asset) => (
+                {filteredEvidence.slice(0, 4).map((asset) => (
                   <EvidenceCard
                     key={asset.id}
                     asset={asset}
@@ -289,11 +314,11 @@ export default function Home() {
                 Temporal Before & After Verification Studio
               </h1>
               <p className="text-sm text-[#454745] mt-2 max-w-3xl leading-relaxed">
-                Compare baseline and subsequent milestone evidence captured at identical coordinates. Slide horizontally to inspect ecological change, view quantified deltas, and preview Cloudinary dynamic cryptographic overlays.
+                Compare baseline and subsequent milestone evidence captured at identical coordinates. Toggle between split slider, dual side-by-side view, opacity dissolve, and change heatmaps powered by Cloudinary.
               </p>
             </div>
 
-            {/* Main Interactive Slider */}
+            {/* Main Interactive Multi-View Slider */}
             <BeforeAfterSlider
               comparisons={comparisons}
               selectedPairId={selectedComparisonPairId}
@@ -371,14 +396,15 @@ export default function Home() {
 
             {/* Results Count & Clear */}
             <div className="flex items-center justify-between text-xs text-[#6a6c6a] px-1">
-              <span>Showing <strong className="text-[#0e0f0c]">{filteredEvidence.length}</strong> verified assets</span>
-              {(searchQuery || selectedCategory !== 'all' || selectedMilestone !== 'all' || selectedSdg !== 'all') && (
+              <span>Showing <strong className="text-[#0e0f0c]">{filteredEvidence.length}</strong> verified assets {selectedCountry && `in ${selectedCountry}`}</span>
+              {(searchQuery || selectedCategory !== 'all' || selectedMilestone !== 'all' || selectedSdg !== 'all' || selectedCountry) && (
                 <button
                   onClick={() => {
                     setSearchQuery('');
                     setSelectedCategory('all');
                     setSelectedMilestone('all');
                     setSelectedSdg('all');
+                    setSelectedCountry(null);
                   }}
                   className="text-[#163300] font-semibold underline cursor-pointer"
                 >
@@ -477,8 +503,13 @@ export default function Home() {
         )}
       </main>
 
-      {/* Floating QR Badge (Wise persistent badge in bottom-right corner) */}
-      <aside aria-label="Field app download badge" className="fixed bottom-6 right-6 z-30 bg-[#163300] text-white p-3 rounded-[16px] shadow-lg flex flex-col items-center gap-1.5 w-[124px] border border-[#054d28] group transition-transform hover:scale-105 select-none">
+      {/* Floating QR Badge (Clickable - opens QRVerifierModal) */}
+      <aside 
+        onClick={() => setIsQRModalOpen(true)}
+        aria-label="Field app download badge" 
+        className="fixed bottom-6 right-6 z-30 bg-[#163300] text-white p-3 rounded-[16px] shadow-lg flex flex-col items-center gap-1.5 w-[124px] border border-[#054d28] group transition-transform hover:scale-105 select-none cursor-pointer"
+        title="Click to launch Mobile Field Proof Scanner"
+      >
         <div className="bg-white p-1.5 rounded-[8px] flex items-center justify-center">
           <svg className="w-16 h-16" viewBox="0 0 24 24" fill="#163300">
             <path d="M2 2h8v8H2V2zm2 2v4h4V4H4zm10-2h8v8h-8V2zm2 2v4h4V4h-4zM2 14h8v8H2v-8zm2 2v4h4v-4H4zm14 0h4v2h-4v-2zm-4 0h2v4h-2v-4zm4 4h4v2h-4v-2zm-2 2h2v-2h-2v2zm-2-6h2v2h-2v-2zM5 5h2v2H5V5zm12 0h2v2h-2V5zM5 17h2v2H5v-2z"/>
@@ -514,6 +545,12 @@ export default function Home() {
         onClose={() => setIsReportModalOpen(false)}
         report={report}
         project={projects[0]}
+      />
+
+      <QRVerifierModal
+        isOpen={isQRModalOpen}
+        onClose={() => setIsQRModalOpen(false)}
+        sampleAsset={evidence[0]}
       />
     </div>
   );

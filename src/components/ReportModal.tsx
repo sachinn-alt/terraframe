@@ -12,7 +12,9 @@ import {
   ShieldCheck, 
   Share2, 
   Sparkles,
-  ExternalLink
+  ExternalLink,
+  Award,
+  QrCode
 } from 'lucide-react';
 
 interface ReportModalProps {
@@ -68,7 +70,7 @@ ${report.auditTrail.map(a => `| \`${a.assetId}\` | \`${a.sha256Hash.substring(0,
   };
 
   const handleCopyPublicLink = () => {
-    navigator.clipboard.writeText(`https://terraframe.earth/audit/${report.id}`);
+    navigator.clipboard.writeText(`https://terraframe-kappa.vercel.app/audit/${report.id}`);
     setCopiedLink(true);
     setTimeout(() => setCopiedLink(false), 2000);
   };
@@ -78,21 +80,26 @@ ${report.auditTrail.map(a => `| \`${a.assetId}\` | \`${a.sha256Hash.substring(0,
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-900/60 backdrop-blur-xs animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-[#163300]/70 backdrop-blur-xs animate-in fade-in duration-200">
       <div 
-        className="bg-white border border-slate-200 rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl flex flex-col"
+        className="bg-white border border-[#e8ebe6] rounded-[10px] sm:rounded-[28px] max-w-4xl w-full max-h-[92vh] overflow-hidden shadow-2xl flex flex-col font-sans text-[#454745]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Modal Controls */}
-        <div className="px-6 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50/80">
+        <div className="px-6 py-4 border-b border-[#e8ebe6] flex items-center justify-between bg-[#e8ebe6]/40">
           <div className="flex items-center gap-3">
-            <span className="w-8 h-8 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center">
-              <FileCheck2 className="w-5 h-5" />
+            <span className="w-8 h-8 rounded-full bg-[#163300] text-[#9fe870] flex items-center justify-center font-bold">
+              <FileCheck2 className="w-4 h-4" />
             </span>
             <div>
-              <h3 className="text-base font-bold text-slate-900">ESG Visual Verification Report</h3>
-              <p className="text-xs text-slate-500 font-mono">
-                Audit Record ID: {report.id}
+              <div className="flex items-center gap-2">
+                <h3 className="text-sm sm:text-base font-bold text-[#0e0f0c]">ESG Audit & Impact Story Report</h3>
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#9fe870] text-[#163300]">
+                  Audit Grade
+                </span>
+              </div>
+              <p className="text-xs text-[#6a6c6a] font-mono">
+                Verification Ledger ID: {report.id}
               </p>
             </div>
           </div>
@@ -100,78 +107,80 @@ ${report.auditTrail.map(a => `| \`${a.assetId}\` | \`${a.sha256Hash.substring(0,
           <div className="flex items-center gap-2">
             <button
               onClick={handlePrint}
-              className="p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-200 rounded-lg transition-colors"
+              className="p-2 text-[#163300] hover:bg-[#e8ebe6] rounded-full transition-colors cursor-pointer"
               title="Print / Save PDF"
             >
               <Printer className="w-4 h-4" />
             </button>
             <button
               onClick={onClose}
-              className="w-8 h-8 rounded-full bg-slate-200/80 hover:bg-slate-300 text-slate-600 flex items-center justify-center transition-colors"
+              className="w-8 h-8 rounded-full bg-[#e8ebe6] hover:bg-[#dfe4dc] text-[#163300] flex items-center justify-center transition-colors cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
           </div>
         </div>
 
-        {/* Report Content Document Body */}
-        <div className="p-8 overflow-y-auto space-y-6 text-slate-800 text-xs sm:text-sm bg-white print:p-0">
+        {/* Report Document Printable Content */}
+        <div className="p-6 sm:p-10 overflow-y-auto space-y-6 text-xs sm:text-sm bg-white print:p-0">
           {/* Institutional Report Header */}
-          <div className="border-b-2 border-slate-900 pb-5">
+          <div className="border-b-2 border-[#163300] pb-6">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="w-6 h-6 rounded bg-emerald-600 text-white flex items-center justify-center text-xs font-bold">
+              <div className="flex items-center gap-2.5">
+                <span className="w-7 h-7 rounded-full bg-[#163300] text-[#9fe870] flex items-center justify-center text-xs font-black">
                   TF
                 </span>
-                <span className="font-bold text-slate-900 tracking-wider uppercase text-xs">
+                <span className="font-bold text-[#163300] tracking-wider uppercase text-xs">
                   Terraframe AI • Independent Environmental Audit
                 </span>
               </div>
-              <span className="text-[11px] font-mono text-slate-500">
+              <span className="text-[11px] font-mono text-[#6a6c6a]">
                 Issued: {new Date(report.generatedAt).toLocaleDateString()}
               </span>
             </div>
 
-            <h1 className="text-xl sm:text-2xl font-bold text-slate-900 mt-4 tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-black text-[#0e0f0c] mt-4 tracking-tight font-sans">
               {report.title}
             </h1>
-            <p className="text-xs text-slate-600 mt-1">
-              Project Sponsor: <span className="font-semibold text-slate-800">{project.organization}</span> • Location: {project.region}, {project.country}
+            <p className="text-xs sm:text-sm text-[#454745] mt-1">
+              Project Sponsor: <strong className="text-[#163300]">{project.organization}</strong> • Jurisdiction: {project.region}, {project.country}
             </p>
           </div>
 
-          {/* Executive Certification Summary */}
-          <div className="bg-emerald-50/60 border border-emerald-200 rounded-2xl p-5">
-            <div className="flex items-center gap-2 mb-2 font-bold text-emerald-950 text-sm">
-              <ShieldCheck className="w-4 h-4 text-emerald-600" />
-              Verified Outcome Certification
+          {/* Executive Certification Summary (Wise Linen Mist container) */}
+          <div className="bg-[#e2f6d5] border border-[#163300]/20 rounded-[10px] p-5 sm:p-6">
+            <div className="flex items-center gap-2 mb-2 font-bold text-[#163300] text-sm">
+              <ShieldCheck className="w-5 h-5" />
+              <span>Institutional Compliance Certification</span>
             </div>
-            <p className="text-slate-700 leading-relaxed text-xs sm:text-sm">
+            <p className="text-[#163300] leading-relaxed text-xs sm:text-sm">
               {report.executiveSummary}
             </p>
-            <div className="mt-3 pt-3 border-t border-emerald-100 flex flex-wrap items-center justify-between text-xs text-emerald-900 font-semibold gap-2">
-              <span>{report.quantifiedDeltaSummary}</span>
-              <span className="bg-white px-2.5 py-1 rounded-md border border-emerald-200 shadow-2xs font-mono text-[11px]">
-                {report.verifiedAssetsCount} Field Assets Verified
+            <div className="mt-4 pt-3 border-t border-[#163300]/20 flex flex-wrap items-center justify-between text-xs text-[#163300] font-bold gap-2">
+              <span className="bg-[#163300] text-[#9fe870] px-3 py-1 rounded-full font-mono">
+                {report.quantifiedDeltaSummary}
+              </span>
+              <span className="bg-white px-3 py-1 rounded-full border border-[#163300]/30 font-mono text-[11px]">
+                {report.verifiedAssetsCount} Cloudinary Field Assets Authenticated
               </span>
             </div>
           </div>
 
-          {/* UN SDG Alignment Table */}
+          {/* UN SDG Alignment Grid */}
           <div>
-            <h3 className="font-bold text-slate-900 text-sm mb-2.5">
-              UN Sustainable Development Goals (SDG) Contribution:
+            <h3 className="font-bold text-[#0e0f0c] text-sm mb-3">
+              United Nations Sustainable Development Goals (SDG) Audit:
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {report.sdgContributions.map((s) => (
-                <div key={s.sdg} className="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
-                  <div className="flex items-center gap-1.5 font-bold text-slate-900 text-xs mb-1">
-                    <span className="w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[10px]">
+                <div key={s.sdg} className="bg-[#e8ebe6] p-4 rounded-[10px]">
+                  <div className="flex items-center gap-2 font-bold text-[#163300] text-xs mb-1.5">
+                    <span className="w-6 h-6 rounded-full bg-[#163300] text-[#9fe870] flex items-center justify-center text-[10px] font-bold">
                       {s.sdg}
                     </span>
                     <span>{s.title}</span>
                   </div>
-                  <p className="text-[11px] text-slate-600 leading-relaxed">
+                  <p className="text-[11px] text-[#454745] leading-relaxed">
                     {s.verifiedMetric}
                   </p>
                 </div>
@@ -182,29 +191,29 @@ ${report.auditTrail.map(a => `| \`${a.assetId}\` | \`${a.sha256Hash.substring(0,
           {/* Cryptographic Provenance Ledger */}
           <div>
             <div className="flex items-center justify-between mb-2">
-              <h3 className="font-bold text-slate-900 text-sm flex items-center gap-1.5">
-                <ShieldCheck className="w-4 h-4 text-emerald-600" />
+              <h3 className="font-bold text-[#0e0f0c] text-sm flex items-center gap-1.5">
+                <ShieldCheck className="w-4 h-4 text-[#163300]" />
                 Cryptographic Traceability Ledger (SHA-256)
               </h3>
-              <span className="text-[11px] font-mono text-slate-500">Cloudinary Authenticated</span>
+              <span className="text-[11px] font-mono text-[#163300] font-semibold">Cloudinary Authenticated</span>
             </div>
-            <div className="border border-slate-200 rounded-xl overflow-hidden">
+            <div className="border border-[#e8ebe6] rounded-[10px] overflow-hidden">
               <table className="w-full text-left text-[11px]">
-                <thead className="bg-slate-100 text-slate-700 font-semibold border-b border-slate-200">
+                <thead className="bg-[#e8ebe6] text-[#163300] font-bold border-b border-[#e8ebe6]">
                   <tr>
-                    <th className="p-2.5">Asset ID</th>
-                    <th className="p-2.5">SHA-256 Hash</th>
-                    <th className="p-2.5">GPS Pin</th>
-                    <th className="p-2.5">Capture Date</th>
+                    <th className="p-3">Asset ID</th>
+                    <th className="p-3">SHA-256 Fingerprint</th>
+                    <th className="p-3">GPS Coordinates</th>
+                    <th className="p-3">Capture Date</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-[#e8ebe6]">
                   {report.auditTrail.map((entry, idx) => (
-                    <tr key={idx} className="hover:bg-slate-50">
-                      <td className="p-2.5 font-mono text-slate-800 font-semibold">{entry.assetId}</td>
-                      <td className="p-2.5 font-mono text-slate-500 break-all">{entry.sha256Hash}</td>
-                      <td className="p-2.5 text-slate-600">{entry.gpsCoordinates}</td>
-                      <td className="p-2.5 text-slate-600">{new Date(entry.timestamp).toLocaleDateString()}</td>
+                    <tr key={idx} className="hover:bg-[#e8ebe6]/40">
+                      <td className="p-3 font-mono text-[#0e0f0c] font-semibold">{entry.assetId}</td>
+                      <td className="p-3 font-mono text-[#6a6c6a] break-all">{entry.sha256Hash}</td>
+                      <td className="p-3 text-[#454745]">{entry.gpsCoordinates}</td>
+                      <td className="p-3 text-[#6a6c6a]">{new Date(entry.timestamp).toLocaleDateString()}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -212,35 +221,56 @@ ${report.auditTrail.map(a => `| \`${a.assetId}\` | \`${a.sha256Hash.substring(0,
             </div>
           </div>
 
+          {/* Official Seal Block for Print & Verification */}
+          <div className="p-5 bg-[#e8ebe6] rounded-[10px] flex flex-col sm:flex-row items-center justify-between gap-4 border border-[#d8dcd5]">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-full bg-[#163300] text-[#9fe870] flex items-center justify-center font-black text-xs shadow-xs">
+                <Award className="w-6 h-6" />
+              </div>
+              <div>
+                <h4 className="text-xs font-bold text-[#0e0f0c]">Cryptographic Non-Repudiation Guarantee</h4>
+                <p className="text-[11px] text-[#6a6c6a]">
+                  All media signed on ingestion via SHA-256 and served through Cloudinary transformation pipeline.
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 text-right">
+              <div className="text-[10px] font-mono text-[#454745]">
+                <span>Status: VERIFIED</span><br/>
+                <span>Node: TF-GLOBAL-ORCHESTRATOR</span>
+              </div>
+            </div>
+          </div>
+
           {/* Public Campaign Story Bundle */}
-          <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
-            <h4 className="font-bold text-slate-900 text-xs flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+          <div className="bg-[#e8ebe6] p-4 rounded-[10px] space-y-2">
+            <h4 className="font-bold text-[#163300] text-xs flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-[#163300]" />
               Campaign Story & Social Broadcast Asset
             </h4>
-            <div className="bg-white p-3 rounded-lg border border-slate-200 text-xs">
-              <p className="font-bold text-slate-800 mb-1">&quot;{report.campaignHeadline}&quot;</p>
-              <p className="text-slate-600 text-[11px] leading-relaxed italic">{report.socialSnippet}</p>
+            <div className="bg-white p-3 rounded-[8px] border border-[#e8ebe6] text-xs">
+              <p className="font-bold text-[#0e0f0c] mb-1">&quot;{report.campaignHeadline}&quot;</p>
+              <p className="text-[#454745] text-[11px] leading-relaxed italic">{report.socialSnippet}</p>
             </div>
           </div>
         </div>
 
-        {/* Modal Footer Actions */}
-        <div className="px-6 py-4 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3">
+        {/* Modal Footer Actions (Wise pill buttons) */}
+        <div className="px-6 py-4 bg-[#e8ebe6]/40 border-t border-[#e8ebe6] flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <button
               onClick={handleCopyMarkdown}
-              className="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-slate-700 bg-white border border-slate-300 rounded-xl hover:bg-slate-100 transition-colors shadow-2xs"
+              className="flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-[#163300] bg-white border border-[#163300] rounded-full hover:bg-[#e8ebe6] transition-colors cursor-pointer"
             >
-              {copiedMd ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+              {copiedMd ? <Check className="w-3.5 h-3.5 text-[#163300]" /> : <Copy className="w-3.5 h-3.5" />}
               <span>{copiedMd ? 'Copied Markdown!' : 'Copy Markdown Report'}</span>
             </button>
 
             <button
               onClick={handleCopyPublicLink}
-              className="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-slate-700 bg-white border border-slate-300 rounded-xl hover:bg-slate-100 transition-colors shadow-2xs"
+              className="flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-[#163300] bg-white border border-[#163300] rounded-full hover:bg-[#e8ebe6] transition-colors cursor-pointer"
             >
-              {copiedLink ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Share2 className="w-3.5 h-3.5" />}
+              {copiedLink ? <Check className="w-3.5 h-3.5 text-[#163300]" /> : <Share2 className="w-3.5 h-3.5" />}
               <span>{copiedLink ? 'Link Copied!' : 'Copy Public Share Link'}</span>
             </button>
           </div>
@@ -248,9 +278,9 @@ ${report.auditTrail.map(a => `| \`${a.assetId}\` | \`${a.sha256Hash.substring(0,
           <div className="flex items-center gap-2">
             <button
               onClick={handlePrint}
-              className="flex items-center gap-2 px-4 py-2 text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800 rounded-xl shadow-sm transition-all"
+              className="wise-btn-primary"
             >
-              <Download className="w-4 h-4" />
+              <Download className="w-4 h-4 text-[#163300]" />
               <span>Export PDF / Print</span>
             </button>
           </div>
