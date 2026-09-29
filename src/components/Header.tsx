@@ -9,7 +9,6 @@ import {
   Layers,
   MapPin,
   CheckCircle2,
-  Folder,
   Menu,
   X
 } from 'lucide-react';
@@ -109,16 +108,8 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         </nav>
 
-        {/* Right Island: Real Action & Contact Capsule */}
+        {/* Right Island: Real Action Capsule */}
         <div className="flex items-center gap-2 pointer-events-auto">
-          {/* Real Contact Capsule */}
-          <a
-            href="mailto:contact@terraframe.org"
-            className="hidden sm:flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-sm text-xs font-semibold text-slate-800 hover:text-black hover:border-slate-300 transition-all hover:shadow-md cursor-pointer"
-          >
-            <Folder className="w-3.5 h-3.5 fill-slate-900 text-slate-900" />
-            <span>contact@terraframe.org</span>
-          </a>
 
           {/* Real Field Media Ingest CTA Capsule */}
           <button
