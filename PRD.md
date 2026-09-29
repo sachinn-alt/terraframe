@@ -1,5 +1,5 @@
 # Product Requirements Document (PRD)
-## AI-Powered Impact & Sustainability Media Platform (VeriTerra AI)
+## AI-Powered Impact & Sustainability Media Platform (Terraframe)
 
 **Document Status:** Approved / Production Target  
 **Hackathon Track:** Problem Statement 02 – Cloudinary  
@@ -14,7 +14,7 @@ NGOs, multilateral institutions, environmental foundations, and ESG audit teams 
 
 Currently, this critical evidence sits disorganized in messaging chats, shared drives, and unindexed cloud buckets. Crucial visual proof lacks verifiable location metadata, tamper-detection, standardized environmental impact scoring, and structured before-and-after timelines.
 
-**VeriTerra AI** is an AI-powered media intelligence platform powered by **Cloudinary**. It ingests raw visual field data, extracts and validates geospatial-temporal signals, classifies environmental impact against UN Sustainable Development Goals (SDGs), automatically pairs baseline and milestone media to quantify environmental change, and produces verifiable impact reports and campaign-ready visual assets.
+**Terraframe** is an AI-powered media intelligence platform powered by **Cloudinary**. It ingests raw visual field data, extracts and validates geospatial-temporal signals, classifies environmental impact against UN Sustainable Development Goals (SDGs), automatically pairs baseline and milestone media to quantify environmental change, and produces verifiable impact reports and campaign-ready visual assets.
 
 ---
 

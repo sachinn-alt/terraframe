@@ -1,4 +1,4 @@
-# VeriTerra AI — AI-Powered Impact & Sustainability Media Platform
+# Terraframe — AI-Powered Impact & Sustainability Media Platform
 
 > **Hackathon:** Code Cubicle 6 — Problem Statement 02 (Cloudinary Track)  
 > **Mission:** Transforming raw field photos and videos from environmental initiatives into verified evidence, measurable impact, and compelling visual stories.
@@ -17,9 +17,9 @@ Without automated intelligence:
 
 ---
 
-## ⚡ The VeriTerra AI Solution
+## ⚡ The Terraframe Solution
 
-**VeriTerra AI** leverages **Cloudinary** and multimodal AI to build an end-to-end media intelligence workflow:
+**Terraframe** leverages **Cloudinary** and multimodal AI to build an end-to-end media intelligence workflow:
 
 1. **Intelligent Field Ingestion:** Preserves camera EXIF, GPS telemetry, device fingerprints, and SHA-256 tamper-proof hashes.
 2. **Cloudinary Dynamic Media Engine:** Automatic format/quality optimization (`f_auto, q_auto`), smart focal cropping (`c_fill, g_auto`), and real-time cryptographic proof watermarking.
@@ -32,7 +32,7 @@ Without automated intelligence:
 
 ## 🎨 Design Philosophy: Anti-"AI Slop" Light Theme
 
-Unlike typical AI projects with dark backgrounds and generic purple/black neon gradients, VeriTerra AI features an **editorial light theme**:
+Unlike typical AI projects with dark backgrounds and generic purple/black neon gradients, Terraframe features an **editorial light theme**:
 * Crisp white card surfaces (`#FFFFFF`) with warm slate canvas (`#F8FAFC`).
 * High-contrast slate typography (`#0F172A` / `#475569`) engineered for institutional trust.
 * Fresh sustainability emerald (`#059669`) and earth ochre accents.

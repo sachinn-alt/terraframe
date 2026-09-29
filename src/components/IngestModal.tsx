@@ -163,10 +163,10 @@ export const IngestModal: React.FC<IngestModalProps> = ({
       },
       cloudinary: {
         publicId: `ingest_${assetId}`,
-        cloudName: 'veriterra-demo',
+        cloudName: 'terraframe-demo',
         secureUrl: imageUrl,
         thumbnailUrl: getGalleryThumbnail(imageUrl),
-        watermarkedUrl: getWatermarkedProof(imageUrl, 'VERITERRA • INGESTED PROOF'),
+        watermarkedUrl: getWatermarkedProof(imageUrl, 'TERRAFRAME • INGESTED PROOF'),
         smartCroppedUrl: getHeroBanner(imageUrl),
         format: 'jpg',
         width: 3840,
@@ -278,8 +278,8 @@ export const IngestModal: React.FC<IngestModalProps> = ({
           {uploadMethod === 'widget' && (
             <CloudinaryUploadWidget
               onSuccess={handleWidgetSuccess}
-              folder="veriterra/field-evidence"
-              tags={['veriterra', 'field-proof']}
+              folder="terraframe/field-evidence"
+              tags={['terraframe', 'field-proof']}
               buttonText="Launch Cloudinary Upload Widget"
             />
           )}

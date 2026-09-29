@@ -1,5 +1,5 @@
 # Design System & UI/UX Specification (DESIGN.md)
-## VeriTerra AI — Impact & Sustainability Media Platform
+## Terraframe — Impact & Sustainability Media Platform
 
 **Design Philosophy:** Crisp Editorial & Institutional Sustainability  
 **Color Mode:** **Strict Light Theme Only** (No dark purple/black "AI slop" gradients)  
@@ -10,7 +10,7 @@
 ## 1. Core Visual Directives
 
 ### 1.1 The Anti-"AI Slop" Pledge
-* **No Black/Purple Neon Gradients:** Most AI hackathon projects rely on dark mode with glowing purple/magenta blurred radial backgrounds. VeriTerra AI rejects this entirely.
+* **No Black/Purple Neon Gradients:** Most AI hackathon projects rely on dark mode with glowing purple/magenta blurred radial backgrounds. Terraframe rejects this entirely.
 * **Institutional Credibility:** Built to look like a multi-million-dollar NGO/Government audit platform used by the UN, WWF, or institutional ESG funds.
 * **Clarity Over Gimmicks:** High contrast, legible typography, crisp architectural borders, and generous white space.
 
@@ -84,7 +84,7 @@
 
 ### 4.1 Global Header & Navigation
 * Clean white bar (`bg-white/95 backdrop-blur-md border-b border-slate-200 sticky top-0 z-40`).
-* Left: Platform Brandmark — VeriTerra leaf badge in emerald green with bold slate typography.
+* Left: Platform Brandmark — Terraframe leaf badge in emerald green with bold slate typography.
 * Center: Navigation links (`Dashboard`, `Projects`, `Evidence Gallery`, `Before/After Studio`, `Impact Reports`).
 * Right: Cloudinary Status Indicator (Green live pulse), Global Search trigger (`⌘K`), and "+ Ingest Field Media" primary emerald button.
 

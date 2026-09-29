@@ -39,7 +39,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({
 **Project:** ${project.name} (${project.region}, ${project.country})  
 **Organization:** ${project.organization}  
 **Audit ID:** \`${report.id}\` | **Generated:** ${new Date(report.generatedAt).toLocaleString()}  
-**Provenance Engine:** VeriTerra AI (Cloudinary Dynamic Media Intelligence)
+**Provenance Engine:** Terraframe AI (Cloudinary Dynamic Media Intelligence)
 
 ---
 
@@ -68,7 +68,7 @@ ${report.auditTrail.map(a => `| \`${a.assetId}\` | \`${a.sha256Hash.substring(0,
   };
 
   const handleCopyPublicLink = () => {
-    navigator.clipboard.writeText(`https://veriterra.earth/audit/${report.id}`);
+    navigator.clipboard.writeText(`https://terraframe.earth/audit/${report.id}`);
     setCopiedLink(true);
     setTimeout(() => setCopiedLink(false), 2000);
   };
@@ -121,10 +121,10 @@ ${report.auditTrail.map(a => `| \`${a.assetId}\` | \`${a.sha256Hash.substring(0,
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span className="w-6 h-6 rounded bg-emerald-600 text-white flex items-center justify-center text-xs font-bold">
-                  VT
+                  TF
                 </span>
                 <span className="font-bold text-slate-900 tracking-wider uppercase text-xs">
-                  VeriTerra AI • Independent Environmental Audit
+                  Terraframe AI • Independent Environmental Audit
                 </span>
               </div>
               <span className="text-[11px] font-mono text-slate-500">

@@ -68,7 +68,7 @@ export const Header: React.FC<HeaderProps> = ({
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-xl font-bold tracking-tight text-slate-900">VeriTerra</span>
+                <span className="text-xl font-bold tracking-tight text-slate-900">Terraframe</span>
                 <span className="px-1.5 py-0.5 text-[10px] font-semibold tracking-wide uppercase bg-emerald-100 text-emerald-800 rounded">
                   AI Media
                 </span>

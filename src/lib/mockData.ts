@@ -130,10 +130,10 @@ export const INITIAL_EVIDENCE: EvidenceAsset[] = [
     },
     cloudinary: {
       publicId: 'sundarbans_baseline_mudflat_2024',
-      cloudName: 'veriterra-demo',
+      cloudName: 'terraframe-demo',
       secureUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80',
       thumbnailUrl: getGalleryThumbnail('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80'),
-      watermarkedUrl: getWatermarkedProof('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80', 'VERITERRA • BASELINE AUDIT 2024'),
+      watermarkedUrl: getWatermarkedProof('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80', 'TERRAFRAME • BASELINE AUDIT 2024'),
       smartCroppedUrl: getHeroBanner('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80'),
       format: 'jpg',
       width: 4000,
@@ -195,10 +195,10 @@ export const INITIAL_EVIDENCE: EvidenceAsset[] = [
     },
     cloudinary: {
       publicId: 'sundarbans_milestone_canopy_2025',
-      cloudName: 'veriterra-demo',
+      cloudName: 'terraframe-demo',
       secureUrl: 'https://images.unsplash.com/photo-1544979590-37e9b47eb705?auto=format&fit=crop&w=1200&q=80',
       thumbnailUrl: getGalleryThumbnail('https://images.unsplash.com/photo-1544979590-37e9b47eb705?auto=format&fit=crop&w=1200&q=80'),
-      watermarkedUrl: getWatermarkedProof('https://images.unsplash.com/photo-1544979590-37e9b47eb705?auto=format&fit=crop&w=1200&q=80', 'VERITERRA • VERIFIED MILESTONE 2025'),
+      watermarkedUrl: getWatermarkedProof('https://images.unsplash.com/photo-1544979590-37e9b47eb705?auto=format&fit=crop&w=1200&q=80', 'TERRAFRAME • VERIFIED MILESTONE 2025'),
       smartCroppedUrl: getHeroBanner('https://images.unsplash.com/photo-1544979590-37e9b47eb705?auto=format&fit=crop&w=1200&q=80'),
       format: 'jpg',
       width: 4000,
@@ -261,10 +261,10 @@ export const INITIAL_EVIDENCE: EvidenceAsset[] = [
     },
     cloudinary: {
       publicId: 'atacama_baseline_arid_2024',
-      cloudName: 'veriterra-demo',
+      cloudName: 'terraframe-demo',
       secureUrl: 'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=80',
       thumbnailUrl: getGalleryThumbnail('https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=80'),
-      watermarkedUrl: getWatermarkedProof('https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=80', 'VERITERRA • BASELINE DESERT SURVEY'),
+      watermarkedUrl: getWatermarkedProof('https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=80', 'TERRAFRAME • BASELINE DESERT SURVEY'),
       smartCroppedUrl: getHeroBanner('https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=80'),
       format: 'jpg',
       width: 4200,
@@ -326,10 +326,10 @@ export const INITIAL_EVIDENCE: EvidenceAsset[] = [
     },
     cloudinary: {
       publicId: 'atacama_milestone_pv_energized_2024',
-      cloudName: 'veriterra-demo',
+      cloudName: 'terraframe-demo',
       secureUrl: 'https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&w=1200&q=80',
       thumbnailUrl: getGalleryThumbnail('https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&w=1200&q=80'),
-      watermarkedUrl: getWatermarkedProof('https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&w=1200&q=80', 'VERITERRA • ENERGIZED PV AUDIT 2024'),
+      watermarkedUrl: getWatermarkedProof('https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&w=1200&q=80', 'TERRAFRAME • ENERGIZED PV AUDIT 2024'),
       smartCroppedUrl: getHeroBanner('https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&w=1200&q=80'),
       format: 'jpg',
       width: 4200,
@@ -392,10 +392,10 @@ export const INITIAL_EVIDENCE: EvidenceAsset[] = [
     },
     cloudinary: {
       publicId: 'bali_baseline_rubble_2023',
-      cloudName: 'veriterra-demo',
+      cloudName: 'terraframe-demo',
       secureUrl: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80',
       thumbnailUrl: getGalleryThumbnail('https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80'),
-      watermarkedUrl: getWatermarkedProof('https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80', 'VERITERRA • BASELINE REEF AUDIT'),
+      watermarkedUrl: getWatermarkedProof('https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80', 'TERRAFRAME • BASELINE REEF AUDIT'),
       smartCroppedUrl: getHeroBanner('https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80'),
       format: 'jpg',
       width: 4500,
@@ -457,10 +457,10 @@ export const INITIAL_EVIDENCE: EvidenceAsset[] = [
     },
     cloudinary: {
       publicId: 'bali_milestone_coral_growth_2025',
-      cloudName: 'veriterra-demo',
+      cloudName: 'terraframe-demo',
       secureUrl: 'https://images.unsplash.com/photo-1546026423-cc4642628d2b?auto=format&fit=crop&w=1200&q=80',
       thumbnailUrl: getGalleryThumbnail('https://images.unsplash.com/photo-1546026423-cc4642628d2b?auto=format&fit=crop&w=1200&q=80'),
-      watermarkedUrl: getWatermarkedProof('https://images.unsplash.com/photo-1546026423-cc4642628d2b?auto=format&fit=crop&w=1200&q=80', 'VERITERRA • VERIFIED REEF REBOUND'),
+      watermarkedUrl: getWatermarkedProof('https://images.unsplash.com/photo-1546026423-cc4642628d2b?auto=format&fit=crop&w=1200&q=80', 'TERRAFRAME • VERIFIED REEF REBOUND'),
       smartCroppedUrl: getHeroBanner('https://images.unsplash.com/photo-1546026423-cc4642628d2b?auto=format&fit=crop&w=1200&q=80'),
       format: 'jpg',
       width: 4500,
@@ -523,10 +523,10 @@ export const INITIAL_EVIDENCE: EvidenceAsset[] = [
     },
     cloudinary: {
       publicId: 'nairobi_baseline_plastic_2024',
-      cloudName: 'veriterra-demo',
+      cloudName: 'terraframe-demo',
       secureUrl: 'https://images.unsplash.com/photo-1618477461853-cf6ed80faba5?auto=format&fit=crop&w=1200&q=80',
       thumbnailUrl: getGalleryThumbnail('https://images.unsplash.com/photo-1618477461853-cf6ed80faba5?auto=format&fit=crop&w=1200&q=80'),
-      watermarkedUrl: getWatermarkedProof('https://images.unsplash.com/photo-1618477461853-cf6ed80faba5?auto=format&fit=crop&w=1200&q=80', 'VERITERRA • BASELINE WASTE AUDIT'),
+      watermarkedUrl: getWatermarkedProof('https://images.unsplash.com/photo-1618477461853-cf6ed80faba5?auto=format&fit=crop&w=1200&q=80', 'TERRAFRAME • BASELINE WASTE AUDIT'),
       smartCroppedUrl: getHeroBanner('https://images.unsplash.com/photo-1618477461853-cf6ed80faba5?auto=format&fit=crop&w=1200&q=80'),
       format: 'jpg',
       width: 3800,
@@ -588,10 +588,10 @@ export const INITIAL_EVIDENCE: EvidenceAsset[] = [
     },
     cloudinary: {
       publicId: 'nairobi_milestone_river_restored_2024',
-      cloudName: 'veriterra-demo',
+      cloudName: 'terraframe-demo',
       secureUrl: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80',
       thumbnailUrl: getGalleryThumbnail('https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80'),
-      watermarkedUrl: getWatermarkedProof('https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80', 'VERITERRA • RESTORED WATERWAY AUDIT'),
+      watermarkedUrl: getWatermarkedProof('https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80', 'TERRAFRAME • RESTORED WATERWAY AUDIT'),
       smartCroppedUrl: getHeroBanner('https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80'),
       format: 'jpg',
       width: 3800,
@@ -752,16 +752,16 @@ export const INITIAL_AUDIT_REPORT: ESGAuditReport = {
       sha256Hash: '9e8b417c8d9e2b10a24f0c9782163b784a9e229d10e54b6c319e7a810f2249a1',
       timestamp: '2024-03-15T08:42:10Z',
       gpsCoordinates: '21.9497° N, 88.8998° E',
-      verifier: 'VeriTerra Cryptographic Node 01 (Cloudinary Secure Ingest)'
+      verifier: 'Terraframe Cryptographic Node 01 (Cloudinary Secure Ingest)'
     },
     {
       assetId: 'ev-sundarbans-01-after',
       sha256Hash: '4f2910c83a7b9e018d4e2a10b9874c901e823f66c9a018742e5b7190c41189d2',
       timestamp: '2025-09-18T09:15:22Z',
       gpsCoordinates: '21.9499° N, 88.8999° E',
-      verifier: 'VeriTerra Cryptographic Node 01 (Cloudinary Secure Ingest)'
+      verifier: 'Terraframe Cryptographic Node 01 (Cloudinary Secure Ingest)'
     }
   ],
   campaignHeadline: 'From Barren Silt to Living Shield: Sundarbans Mangroves Surge 3,600%',
-  socialSnippet: 'Proof you can see: 18 months of community planting transformed bare mud banks into a thriving mangrove coastal shield. Verified by @VeriTerraAI and powered by @Cloudinary media intelligence. #ClimateAction #SDG15'
+  socialSnippet: 'Proof you can see: 18 months of community planting transformed bare mud banks into a thriving mangrove coastal shield. Verified by @TerraframeAI and powered by @Cloudinary media intelligence. #ClimateAction #SDG15'
 };

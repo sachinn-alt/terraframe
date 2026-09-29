@@ -9,7 +9,7 @@ export default function NotFound() {
       </div>
       <h2 className="text-2xl font-bold text-slate-900">404 - Evidence Not Found</h2>
       <p className="text-sm text-slate-600 mt-2 max-w-md">
-        The requested environmental asset or project record could not be located in the VeriTerra registry.
+        The requested environmental asset or project record could not be located in the Terraframe registry.
       </p>
       <Link
         href="/"

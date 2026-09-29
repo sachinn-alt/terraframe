@@ -1,5 +1,5 @@
 # Technical Requirements Document (TRD)
-## AI-Powered Impact & Sustainability Media Platform (VeriTerra AI)
+## AI-Powered Impact & Sustainability Media Platform (Terraframe)
 
 **Architecture Version:** 1.0.0  
 **Stack:** Next.js 15 (App Router), TypeScript, Cloudinary SDK, Tailwind CSS, Google Gemini Vision API  
@@ -9,7 +9,7 @@
 
 ## 1. System Architecture Overview
 
-VeriTerra AI is structured as a modular, API-first Next.js web application integrating four foundational tiers:
+Terraframe is structured as a modular, API-first Next.js web application integrating four foundational tiers:
 
 ```mermaid
 graph TD
@@ -187,7 +187,7 @@ export interface ImpactProject {
 * **Smart Focal Crop (16:9 Hero):**  
   `https://res.cloudinary.com/<cloud>/image/upload/c_fill,ar_16:9,g_auto,f_auto,q_auto/<public_id>`
 * **Dynamic Verified Watermark Overlay:**  
-  `https://res.cloudinary.com/<cloud>/image/upload/l_text:Arial_20_bold:VERITERRA%20VERIFIED%20PROOF,co_rgb:FFFFFF,b_rgb:059669CC,y_20,x_20,g_south_east/f_auto,q_auto/<public_id>`
+  `https://res.cloudinary.com/<cloud>/image/upload/l_text:Arial_20_bold:TERRAFRAME%20VERIFIED%20PROOF,co_rgb:FFFFFF,b_rgb:059669CC,y_20,x_20,g_south_east/f_auto,q_auto/<public_id>`
 * **Before / After Composition Visual:**  
   Cloudinary layer overlays or dual-asset rendering using `l_<after_public_id>` with custom displacement or side-by-side stitch.
 

@@ -1,5 +1,5 @@
 # Autonomous Agents Architecture (AGENTS.md)
-## VeriTerra AI — Impact & Sustainability Media Platform
+## Terraframe — Impact & Sustainability Media Platform
 
 **Architecture Style:** Multi-Agent Pipeline & Event-Driven Collaboration  
 **Orchestration Engine:** TypeScript Async Agent Orchestrator with Deterministic Fallbacks  
@@ -9,7 +9,7 @@
 
 ## 1. System Agent Overview
 
-VeriTerra AI implements a collaborative multi-agent architecture where specialized agents process raw media from field intake through verification, temporal alignment, and impact publication:
+Terraframe implements a collaborative multi-agent architecture where specialized agents process raw media from field intake through verification, temporal alignment, and impact publication:
 
 ```mermaid
 graph TD

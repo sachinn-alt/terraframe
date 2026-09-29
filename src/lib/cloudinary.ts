@@ -4,7 +4,7 @@
  * Leverages Cloudinary's dynamic CDN transformations for environmental media.
  */
 
-const DEFAULT_CLOUD_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || 'veriterra-demo';
+const DEFAULT_CLOUD_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || 'terraframe-demo';
 
 export interface TransformationOptions {
   width?: number;
@@ -138,7 +138,7 @@ export function getSquareThumbnail(sourceUrl: string): string {
   });
 }
 
-export function getWatermarkedProof(sourceUrl: string, badgeText: string = 'VERITERRA VERIFIED PROOF'): string {
+export function getWatermarkedProof(sourceUrl: string, badgeText: string = 'TERRAFRAME VERIFIED PROOF'): string {
   return buildCloudinaryUrl(sourceUrl, {
     width: 1000,
     quality: 'auto',

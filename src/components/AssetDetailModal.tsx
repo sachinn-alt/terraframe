@@ -58,7 +58,7 @@ export const AssetDetailModal: React.FC<AssetDetailModalProps> = ({
 
   if (transformVariant === 'watermark') {
     displayImageUrl = asset.cloudinary.watermarkedUrl;
-    pipelineDescription = 'l_text:Arial_18_bold:VERITERRA... • Cryptographic verified proof overlay';
+    pipelineDescription = 'l_text:Arial_18_bold:TERRAFRAME... • Cryptographic verified proof overlay';
   } else if (transformVariant === 'focalCrop') {
     displayImageUrl = asset.cloudinary.smartCroppedUrl;
     pipelineDescription = 'c_fill,ar_16:9,g_auto • AI subject gravity landscape framing';

@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'VeriTerra AI — Impact & Sustainability Media Platform',
+  title: 'Terraframe AI — Impact & Sustainability Media Platform',
   description: 'AI-powered media intelligence platform powered by Cloudinary. Transforming field photos and videos into verifiable environmental evidence, measurable before/after impact, and ESG audit reports.',
-  keywords: ['Cloudinary', 'Sustainability', 'ESG Audit', 'Environmental Intelligence', 'Before After Verification', 'UN SDG'],
+  keywords: ['Terraframe', 'Cloudinary', 'Sustainability', 'ESG Audit', 'Environmental Intelligence', 'Before After Verification', 'UN SDG'],
 };
 
 export default function RootLayout({

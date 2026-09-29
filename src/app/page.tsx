@@ -141,7 +141,7 @@ export default function Home() {
                   Turning Field Photos & Videos into Verifiable Impact Evidence.
                 </h1>
                 <p className="text-sm sm:text-base text-slate-600 mt-3 leading-relaxed">
-                  VeriTerra AI empowers NGOs, governments, and sustainability trusts to organize, verify, and transform unindexed field media into cryptographically signed proof, measurable before-and-after timelines, and institutional ESG audit reports powered by <strong className="text-slate-900">Cloudinary</strong>.
+                  Terraframe AI empowers NGOs, governments, and sustainability trusts to organize, verify, and transform unindexed field media into cryptographically signed proof, measurable before-and-after timelines, and institutional ESG audit reports powered by <strong className="text-slate-900">Cloudinary</strong>.
                 </p>
 
                 <div className="flex flex-wrap items-center gap-3 mt-6">
@@ -428,7 +428,7 @@ export default function Home() {
       <footer className="border-t border-slate-200 bg-white py-6 mt-12 text-xs text-slate-500">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <span className="font-bold text-slate-800">VeriTerra AI</span>
+            <span className="font-bold text-slate-800">Terraframe AI</span>
             <span>•</span>
             <span>Code Cubicle 6 Hackathon — Problem Statement 02 (Cloudinary Track)</span>
           </div>

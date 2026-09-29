@@ -1,5 +1,5 @@
 # LLM & Vision Reasoning Specification (LLM.md)
-## VeriTerra AI — Impact & Sustainability Media Platform
+## Terraframe — Impact & Sustainability Media Platform
 
 **Primary Model:** Google Gemini 1.5 Flash / 2.0 Flash (`gemini-1.5-flash` / `gemini-2.0-flash`)  
 **Fallback Provider:** Groq Cloud (`llama-3.2-11b-vision-preview`) / Local Deterministic Engine  

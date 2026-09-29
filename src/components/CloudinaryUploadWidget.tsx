@@ -13,8 +13,8 @@ interface CloudinaryUploadWidgetProps {
 
 export const CloudinaryUploadWidget: React.FC<CloudinaryUploadWidgetProps> = ({
   onSuccess,
-  folder = 'veriterra/field-evidence',
-  tags = ['veriterra', 'environmental-evidence'],
+  folder = 'terraframe/field-evidence',
+  tags = ['terraframe', 'environmental-evidence'],
   buttonText = 'Upload via Cloudinary Widget'
 }) => {
   return (
