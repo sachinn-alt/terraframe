@@ -4,11 +4,7 @@ import React, { useState } from 'react';
 import { 
   Leaf, 
   UploadCloud, 
-  FileCheck2,
-  SlidersHorizontal,
-  Layers,
-  MapPin,
-  CheckCircle2,
+  FileText,
   Menu,
   X
 } from 'lucide-react';
@@ -33,153 +29,153 @@ export const Header: React.FC<HeaderProps> = ({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-4 sm:top-5 z-40 w-full pointer-events-none px-3 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      {/* 3 Floating Islands Container (Zenwood Studio Architecture) */}
-      <div className="flex items-center justify-between gap-3">
-        {/* Left Island: Real Status Pill */}
-        <div className="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-sm pointer-events-auto transition-transform hover:scale-102">
-          <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span className="text-xs font-semibold text-slate-800 tracking-tight select-none">
-            available for verification
-          </span>
-          <span className="hidden lg:inline text-[11px] font-mono text-slate-400 border-l border-slate-200 pl-2">
-            {totalAssetsCount} assets
-          </span>
-        </div>
-
-        {/* Center Island: Main Terraframe Brandmark & Navigation Capsule */}
-        <nav className="hidden md:flex items-center gap-5 px-3.5 py-1.5 rounded-full bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-md pointer-events-auto">
-          {/* Circular Black Brand Badge with White Leaf & Brand Name */}
-          <div 
+    <header className="sticky top-0 z-40 w-full bg-[#ffffff] border-b border-[#e8ebe6] transition-colors">
+      <div className="max-w-7xl mx-auto h-16 px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+        {/* Left: Brand Identity & Status Pill */}
+        <div className="flex items-center gap-3">
+          <button 
             onClick={() => setActiveTab('overview')}
-            className="flex items-center gap-2 cursor-pointer group"
-            title="Terraframe AI Overview"
+            className="flex items-center gap-2.5 text-left cursor-pointer group"
           >
-            <div className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center shrink-0 shadow-sm group-hover:scale-105 transition-transform">
-              <Leaf className="w-4 h-4 fill-white text-white" />
+            <div className="w-9 h-9 rounded-full bg-[#163300] text-[#9fe870] flex items-center justify-center shadow-xs transition-transform group-hover:scale-105">
+              <Leaf className="w-4.5 h-4.5 fill-[#9fe870]" />
             </div>
-            <span className="font-bold text-xs text-slate-900 tracking-tight pr-1">
+            <span className="font-extrabold text-xl text-[#163300] tracking-tight font-sans">
               Terraframe
             </span>
-          </div>
+          </button>
 
-          <div className="h-4 w-px bg-slate-200"></div>
-
-          {/* Genuine Platform Navigation Tabs */}
-          <div className="flex items-center gap-4 text-[13px] font-medium text-slate-700">
-            <button
-              onClick={() => setActiveTab('overview')}
-              className={`hover:text-black transition-colors cursor-pointer ${
-                activeTab === 'overview' ? 'font-bold text-black' : 'text-slate-600'
-              }`}
-            >
-              Overview
-            </button>
-            <button
-              onClick={() => setActiveTab('before-after')}
-              className={`hover:text-black transition-colors cursor-pointer ${
-                activeTab === 'before-after' ? 'font-bold text-black' : 'text-slate-600'
-              }`}
-            >
-              Before / After
-            </button>
-            <button
-              onClick={() => setActiveTab('gallery')}
-              className={`hover:text-black transition-colors cursor-pointer ${
-                activeTab === 'gallery' ? 'font-bold text-black' : 'text-slate-600'
-              }`}
-            >
-              Evidence Gallery
-            </button>
-            <button
-              onClick={() => setActiveTab('map')}
-              className={`hover:text-black transition-colors cursor-pointer ${
-                activeTab === 'map' ? 'font-bold text-black' : 'text-slate-600'
-              }`}
-            >
-              Geo Radar
-            </button>
-            <button
-              onClick={() => onOpenReportModal()}
-              className="hover:text-black transition-colors cursor-pointer text-slate-600"
-            >
-              ESG Reports
-            </button>
+          {/* Linen Mist Status Tag */}
+          <div className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#e2f6d5] text-[#163300] text-xs font-semibold">
+            <span className="w-2 h-2 rounded-full bg-[#163300] inline-block animate-pulse"></span>
+            <span>Registry Live ({totalAssetsCount})</span>
           </div>
+        </div>
+
+        {/* Center: Wise Segmented Tab Control (9999px pill container) */}
+        <nav className="hidden md:flex items-center p-1 rounded-full bg-[#e8ebe6]">
+          <button
+            onClick={() => setActiveTab('overview')}
+            className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+              activeTab === 'overview'
+                ? 'bg-[#9fe870] text-[#163300] shadow-xs'
+                : 'text-[#454745] hover:text-[#163300]'
+            }`}
+          >
+            Overview
+          </button>
+          <button
+            onClick={() => setActiveTab('before-after')}
+            className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+              activeTab === 'before-after'
+                ? 'bg-[#9fe870] text-[#163300] shadow-xs'
+                : 'text-[#454745] hover:text-[#163300]'
+            }`}
+          >
+            Before / After
+          </button>
+          <button
+            onClick={() => setActiveTab('gallery')}
+            className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+              activeTab === 'gallery'
+                ? 'bg-[#9fe870] text-[#163300] shadow-xs'
+                : 'text-[#454745] hover:text-[#163300]'
+            }`}
+          >
+            Evidence Gallery
+          </button>
+          <button
+            onClick={() => setActiveTab('map')}
+            className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+              activeTab === 'map'
+                ? 'bg-[#9fe870] text-[#163300] shadow-xs'
+                : 'text-[#454745] hover:text-[#163300]'
+            }`}
+          >
+            Geo Radar
+          </button>
+          <button
+            onClick={() => onOpenReportModal()}
+            className="px-4 py-1.5 rounded-full text-xs font-semibold text-[#454745] hover:text-[#163300] transition-colors cursor-pointer"
+          >
+            ESG Reports
+          </button>
         </nav>
 
-        {/* Right Island: Real Action Capsule */}
-        <div className="flex items-center gap-2 pointer-events-auto">
+        {/* Right: Wise Pill Actions */}
+        <div className="flex items-center gap-2.5">
+          {/* Secondary Action: Outlined Pill Button */}
+          <button
+            onClick={() => onOpenReportModal()}
+            className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-[#163300] bg-white text-[#163300] text-xs font-semibold hover:bg-[#e8ebe6] transition-all cursor-pointer active:scale-98"
+          >
+            <FileText className="w-3.5 h-3.5" />
+            <span>Audit Deck</span>
+          </button>
 
-          {/* Real Field Media Ingest CTA Capsule */}
+          {/* Primary Action: Signature Lime Voltage Pill Button */}
           <button
             onClick={onOpenIngestModal}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm text-xs font-semibold transition-all active:scale-98 cursor-pointer"
-            title="Ingest New Field Asset"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#9fe870] hover:bg-[#b4f18f] text-[#163300] text-xs font-bold transition-all shadow-xs active:scale-98 cursor-pointer"
           >
             <UploadCloud className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">Ingest Media</span>
+            <span>+ Ingest Media</span>
           </button>
 
           {/* Mobile Menu Trigger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden w-9 h-9 rounded-full bg-white border border-slate-200/90 shadow-sm flex items-center justify-center text-slate-700 hover:text-black cursor-pointer"
+            className="md:hidden w-9 h-9 rounded-full bg-[#e8ebe6] flex items-center justify-center text-[#163300] hover:bg-[#d8dcd5] cursor-pointer"
           >
             {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer (When Open) */}
+      {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden mt-3 p-4 rounded-3xl bg-white/98 backdrop-blur-lg border border-slate-200 shadow-xl pointer-events-auto animate-in fade-in slide-in-from-top-2 duration-200 space-y-2">
-          <div className="flex items-center justify-between pb-2 border-b border-slate-100">
-            <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-full bg-black text-white flex items-center justify-center">
-                <Leaf className="w-3.5 h-3.5 fill-white text-white" />
-              </div>
-              <span className="text-xs font-bold text-slate-900">Terraframe AI</span>
-            </div>
-            <span className="text-[10px] font-mono text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full font-semibold">
-              Live Registry ({totalAssetsCount})
+        <div className="md:hidden p-4 bg-[#ffffff] border-t border-[#e8ebe6] animate-in fade-in slide-in-from-top-2 duration-150 space-y-2">
+          <div className="flex items-center justify-between pb-2 border-b border-[#e8ebe6]">
+            <span className="text-xs font-bold text-[#163300]">Navigation</span>
+            <span className="text-[11px] px-2 py-0.5 rounded-full bg-[#e2f6d5] text-[#163300] font-semibold">
+              Live Assets: {totalAssetsCount}
             </span>
           </div>
 
           <div className="grid grid-cols-2 gap-1.5 pt-1 text-xs font-medium">
             <button
               onClick={() => { setActiveTab('overview'); setMobileMenuOpen(false); }}
-              className={`p-2.5 rounded-xl text-left ${activeTab === 'overview' ? 'bg-slate-900 text-white font-semibold' : 'bg-slate-50 text-slate-700'}`}
+              className={`p-2.5 rounded-xl text-left ${activeTab === 'overview' ? 'bg-[#9fe870] text-[#163300] font-bold' : 'bg-[#e8ebe6] text-[#454745]'}`}
             >
               Overview
             </button>
             <button
               onClick={() => { setActiveTab('before-after'); setMobileMenuOpen(false); }}
-              className={`p-2.5 rounded-xl text-left ${activeTab === 'before-after' ? 'bg-slate-900 text-white font-semibold' : 'bg-slate-50 text-slate-700'}`}
+              className={`p-2.5 rounded-xl text-left ${activeTab === 'before-after' ? 'bg-[#9fe870] text-[#163300] font-bold' : 'bg-[#e8ebe6] text-[#454745]'}`}
             >
-              Before / After Studio
+              Before / After
             </button>
             <button
               onClick={() => { setActiveTab('gallery'); setMobileMenuOpen(false); }}
-              className={`p-2.5 rounded-xl text-left ${activeTab === 'gallery' ? 'bg-slate-900 text-white font-semibold' : 'bg-slate-50 text-slate-700'}`}
+              className={`p-2.5 rounded-xl text-left ${activeTab === 'gallery' ? 'bg-[#9fe870] text-[#163300] font-bold' : 'bg-[#e8ebe6] text-[#454745]'}`}
             >
               Evidence Gallery
             </button>
             <button
               onClick={() => { setActiveTab('map'); setMobileMenuOpen(false); }}
-              className={`p-2.5 rounded-xl text-left ${activeTab === 'map' ? 'bg-slate-900 text-white font-semibold' : 'bg-slate-50 text-slate-700'}`}
+              className={`p-2.5 rounded-xl text-left ${activeTab === 'map' ? 'bg-[#9fe870] text-[#163300] font-bold' : 'bg-[#e8ebe6] text-[#454745]'}`}
             >
-              Geo Radar Map
+              Geo Radar
             </button>
             <button
               onClick={() => { onOpenReportModal(); setMobileMenuOpen(false); }}
-              className="p-2.5 rounded-xl text-left bg-slate-50 text-slate-700"
+              className="p-2.5 rounded-xl text-left bg-[#e8ebe6] text-[#163300]"
             >
               ESG Reports
             </button>
             <button
               onClick={() => { onOpenIngestModal(); setMobileMenuOpen(false); }}
-              className="p-2.5 rounded-xl text-left bg-emerald-50 text-emerald-800 font-semibold"
+              className="p-2.5 rounded-xl text-left bg-[#9fe870] text-[#163300] font-bold"
             >
               + Ingest Media
             </button>

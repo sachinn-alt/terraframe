@@ -2,13 +2,12 @@
 
 import React from 'react';
 import { 
-  CheckCircle, 
+  CheckCircle2, 
   TrendingUp, 
   Globe2, 
   ShieldCheck, 
   Sparkles,
-  TreePine,
-  SunMedium
+  TreePine
 } from 'lucide-react';
 
 interface StatsBannerProps {
@@ -25,84 +24,96 @@ export const StatsBanner: React.FC<StatsBannerProps> = ({
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
       {/* Stat 1 */}
-      <div className="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-2xs hover:shadow-xs hover:border-slate-300 transition-all relative overflow-hidden group">
-        <div className="absolute top-0 left-0 right-0 h-1 bg-emerald-500 rounded-t-2xl"></div>
+      <div className="bg-[#e8ebe6] rounded-[10px] p-5 transition-all hover:bg-[#dfe4dc] relative overflow-hidden">
         <div className="flex items-center justify-between mb-3">
-          <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Verified Field Media</span>
-          <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
-            <CheckCircle className="w-4 h-4" />
+          <span className="text-xs font-semibold uppercase tracking-wider text-[#6a6c6a]">
+            Verified Media
+          </span>
+          <div className="w-8 h-8 rounded-full bg-white text-[#163300] flex items-center justify-center shadow-xs">
+            <CheckCircle2 className="w-4 h-4 stroke-[2.5]" />
           </div>
         </div>
         <div className="flex items-baseline gap-2">
-          <span className="text-3xl font-bold tracking-tight text-slate-900">{totalAssets}</span>
-          <span className="text-xs font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100 flex items-center gap-0.5">
+          <span className="text-4xl font-black text-[#163300] tracking-tight font-sans">
+            {totalAssets}
+          </span>
+          <span className="text-xs font-bold text-[#163300] bg-[#9fe870] px-2.5 py-0.5 rounded-full inline-flex items-center gap-1">
             <ShieldCheck className="w-3 h-3" />
-            100% Provenance
+            100% EXIF
           </span>
         </div>
-        <p className="text-xs text-slate-500 mt-2 font-medium">
-          EXIF camera metadata & SHA-256 tamper-proof hashed via Cloudinary.
+        <p className="text-xs text-[#454745] mt-2 font-medium leading-relaxed">
+          Cryptographically signed field proof via SHA-256 & Cloudinary.
         </p>
       </div>
 
       {/* Stat 2 */}
-      <div className="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-2xs hover:shadow-xs hover:border-slate-300 transition-all relative overflow-hidden group">
-        <div className="absolute top-0 left-0 right-0 h-1 bg-sky-500 rounded-t-2xl"></div>
+      <div className="bg-[#e8ebe6] rounded-[10px] p-5 transition-all hover:bg-[#dfe4dc] relative overflow-hidden">
         <div className="flex items-center justify-between mb-3">
-          <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Before / After Pairs</span>
-          <div className="w-8 h-8 rounded-lg bg-sky-50 text-sky-600 flex items-center justify-center">
-            <TrendingUp className="w-4 h-4" />
+          <span className="text-xs font-semibold uppercase tracking-wider text-[#6a6c6a]">
+            Temporal Pairs
+          </span>
+          <div className="w-8 h-8 rounded-full bg-white text-[#163300] flex items-center justify-center shadow-xs">
+            <TrendingUp className="w-4 h-4 stroke-[2.5]" />
           </div>
         </div>
         <div className="flex items-baseline gap-2">
-          <span className="text-3xl font-bold tracking-tight text-slate-900">{totalComparisons}</span>
-          <span className="text-xs font-medium text-sky-700 bg-sky-50 px-2 py-0.5 rounded-full border border-sky-100 flex items-center gap-0.5">
+          <span className="text-4xl font-black text-[#163300] tracking-tight font-sans">
+            {totalComparisons}
+          </span>
+          <span className="text-xs font-bold text-[#163300] bg-[#e2f6d5] px-2.5 py-0.5 rounded-full inline-flex items-center gap-1">
             <Sparkles className="w-3 h-3" />
             AI Calibrated
           </span>
         </div>
-        <p className="text-xs text-slate-500 mt-2 font-medium">
-          Temporally paired geolocated baseline & milestone visual progress.
+        <p className="text-xs text-[#454745] mt-2 font-medium leading-relaxed">
+          Geolocated baseline & milestone environmental progress.
         </p>
       </div>
 
       {/* Stat 3 */}
-      <div className="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-2xs hover:shadow-xs hover:border-slate-300 transition-all relative overflow-hidden group">
-        <div className="absolute top-0 left-0 right-0 h-1 bg-amber-500 rounded-t-2xl"></div>
+      <div className="bg-[#e8ebe6] rounded-[10px] p-5 transition-all hover:bg-[#dfe4dc] relative overflow-hidden">
         <div className="flex items-center justify-between mb-3">
-          <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Active Field Projects</span>
-          <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
-            <Globe2 className="w-4 h-4" />
+          <span className="text-xs font-semibold uppercase tracking-wider text-[#6a6c6a]">
+            Global Projects
+          </span>
+          <div className="w-8 h-8 rounded-full bg-white text-[#163300] flex items-center justify-center shadow-xs">
+            <Globe2 className="w-4 h-4 stroke-[2.5]" />
           </div>
         </div>
         <div className="flex items-baseline gap-2">
-          <span className="text-3xl font-bold tracking-tight text-slate-900">{totalProjects}</span>
-          <span className="text-xs font-medium text-amber-800 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-100">
+          <span className="text-4xl font-black text-[#163300] tracking-tight font-sans">
+            {totalProjects}
+          </span>
+          <span className="text-xs font-bold text-[#163300] bg-[#e2f6d5] px-2.5 py-0.5 rounded-full">
             4 Continents
           </span>
         </div>
-        <p className="text-xs text-slate-500 mt-2 font-medium">
-          Reforestation, ocean reefs, solar microgrids, and river recovery.
+        <p className="text-xs text-[#454745] mt-2 font-medium leading-relaxed">
+          Mangrove restoration, ocean cleanup, solar grids & wetlands.
         </p>
       </div>
 
       {/* Stat 4 */}
-      <div className="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-2xs hover:shadow-xs hover:border-slate-300 transition-all relative overflow-hidden group">
-        <div className="absolute top-0 left-0 right-0 h-1 bg-emerald-600 rounded-t-2xl"></div>
+      <div className="bg-[#e8ebe6] rounded-[10px] p-5 transition-all hover:bg-[#dfe4dc] relative overflow-hidden">
         <div className="flex items-center justify-between mb-3">
-          <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Verified Ecological Delta</span>
-          <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center">
-            <TreePine className="w-4 h-4" />
+          <span className="text-xs font-semibold uppercase tracking-wider text-[#6a6c6a]">
+            Ecological Delta
+          </span>
+          <div className="w-8 h-8 rounded-full bg-white text-[#163300] flex items-center justify-center shadow-xs">
+            <TreePine className="w-4 h-4 stroke-[2.5]" />
           </div>
         </div>
         <div className="flex items-baseline gap-2">
-          <span className="text-3xl font-bold tracking-tight text-emerald-800">+248%</span>
-          <span className="text-xs font-medium text-emerald-800 bg-emerald-100/60 px-2 py-0.5 rounded-full">
-            Avg Growth
+          <span className="text-4xl font-black text-[#163300] tracking-tight font-sans">
+            +248%
+          </span>
+          <span className="text-xs font-bold text-[#163300] bg-[#9fe870] px-2.5 py-0.5 rounded-full">
+            Biomass Δ
           </span>
         </div>
-        <p className="text-xs text-slate-500 mt-2 font-medium">
-          Segmented visual biomass recovery & clean megawatts energized.
+        <p className="text-xs text-[#454745] mt-2 font-medium leading-relaxed">
+          Chlorophyll vitality recovery & clean megawatts energized.
         </p>
       </div>
     </div>

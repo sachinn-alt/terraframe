@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { ActiveTab } from './Header';
-import { Leaf, Check, ArrowRight } from 'lucide-react';
+import { Leaf, ArrowRight, Check } from 'lucide-react';
 
 interface FooterProps {
   onNavigateTab?: (tab: ActiveTab) => void;
@@ -29,80 +29,80 @@ export const Footer: React.FC<FooterProps> = ({
   };
 
   return (
-    <footer className="relative bg-[#0C0D0F] text-slate-300 py-8 sm:py-10 border-t border-slate-800 selection:bg-emerald-500 selection:text-black">
+    <footer className="w-full bg-[#163300] text-white py-12 sm:py-16 selection:bg-[#9fe870] selection:text-[#163300]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-          {/* Brand & Status Column (5 cols) */}
-          <div className="md:col-span-5 space-y-3">
+          {/* Brand & Mission Column (5 cols) */}
+          <div className="md:col-span-5 space-y-4">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-full bg-white text-black flex items-center justify-center shadow-sm">
-                <Leaf className="w-4 h-4 fill-black text-black" />
+              <div className="w-8 h-8 rounded-full bg-[#9fe870] text-[#163300] flex items-center justify-center shadow-xs">
+                <Leaf className="w-4.5 h-4.5 fill-[#163300]" />
               </div>
-              <span className="text-base font-bold text-white tracking-tight">
-                Terraframe AI
+              <span className="text-2xl font-black text-white tracking-tight font-sans">
+                Terraframe
               </span>
-              <span className="font-mono text-[10px] px-2 py-0.5 rounded-full bg-emerald-950/80 text-emerald-400 border border-emerald-800/60 font-medium">
-                ● Live
+              <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-[#e2f6d5] text-[#163300]">
+                Verified
               </span>
             </div>
             
-            <p className="text-xs text-slate-400 max-w-sm leading-relaxed">
+            <p className="text-sm text-[#e8ebe6]/80 max-w-sm leading-relaxed">
               Decentralized impact & sustainability media registry. Cryptographic SHA-256 field provenance, dynamic Cloudinary optimization, and automated ESG auditing.
             </p>
 
-            <div className="flex items-center gap-2 font-mono text-[11px] text-slate-500">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block animate-pulse"></span>
-              <span className="text-slate-400">Cloudinary Pipeline Active</span>
-              <span className="text-slate-600">·</span>
-              <span className="text-slate-400">Gemini Vision 2.0</span>
+            <div className="flex items-center gap-2 text-xs font-semibold text-[#9fe870]">
+              <span className="w-2 h-2 rounded-full bg-[#9fe870] inline-block animate-pulse"></span>
+              <span>Cloudinary Pipeline Active</span>
+              <span className="text-[#e8ebe6]/40">·</span>
+              <span className="text-[#e8ebe6]/80">Gemini Vision 2.0</span>
             </div>
           </div>
 
           {/* Navigation Links Column (3 cols) */}
-          <div className="md:col-span-3 space-y-2">
-            <h4 className="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-semibold mb-3">
+          <div className="md:col-span-3 space-y-3">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-[#9fe870]">
               Platform
             </h4>
-            <div className="grid grid-cols-1 gap-1.5 text-xs text-slate-400">
+            <div className="grid grid-cols-1 gap-2 text-sm text-[#e8ebe6]/90">
               <button
                 onClick={() => onNavigateTab?.('overview')}
-                className="text-left hover:text-white transition-colors cursor-pointer"
+                className="text-left hover:text-[#9fe870] transition-colors cursor-pointer"
               >
                 Overview
               </button>
               <button
                 onClick={() => onNavigateTab?.('before-after')}
-                className="text-left hover:text-white transition-colors cursor-pointer"
+                className="text-left hover:text-[#9fe870] transition-colors cursor-pointer"
               >
                 Before / After Studio
               </button>
               <button
                 onClick={() => onNavigateTab?.('gallery')}
-                className="text-left hover:text-white transition-colors cursor-pointer"
+                className="text-left hover:text-[#9fe870] transition-colors cursor-pointer"
               >
                 Evidence Gallery
               </button>
               <button
                 onClick={() => onNavigateTab?.('map')}
-                className="text-left hover:text-white transition-colors cursor-pointer"
+                className="text-left hover:text-[#9fe870] transition-colors cursor-pointer"
               >
                 Geospatial Radar
               </button>
               <button
                 onClick={() => onOpenReportModal?.()}
-                className="text-left hover:text-white transition-colors cursor-pointer"
+                className="text-left hover:text-[#9fe870] transition-colors cursor-pointer"
               >
                 ESG Impact Audit
               </button>
             </div>
           </div>
 
-          {/* Quick Newsletter Subscribe (4 cols) */}
+          {/* Field Intelligence Subscribe (4 cols) */}
           <div className="md:col-span-4 space-y-3">
-            <h4 className="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-semibold mb-3">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-[#9fe870]">
               Field Intelligence
             </h4>
-            <p className="text-xs text-slate-400 leading-relaxed">
+            <p className="text-xs text-[#e8ebe6]/80 leading-relaxed">
               Receive verified project telemetry and audit summaries directly to your inbox.
             </p>
             <form onSubmit={handleSubscribe} className="flex items-center gap-2">
@@ -112,21 +112,21 @@ export const Footer: React.FC<FooterProps> = ({
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
-                className="flex-1 px-3 py-2 rounded-lg bg-[#181A1F] border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-slate-600 transition-colors"
+                className="flex-1 px-3.5 py-2.5 rounded-[10px] bg-white text-[#163300] placeholder-[#868685] text-xs font-medium focus:outline-none transition-colors border border-transparent focus:border-[#9fe870]"
               />
               <button
                 type="submit"
-                className="px-3.5 py-2 rounded-lg bg-white hover:bg-slate-100 text-black text-xs font-semibold transition-all flex items-center gap-1.5 cursor-pointer shrink-0"
+                className="px-4 py-2.5 rounded-full bg-[#9fe870] hover:bg-[#b4f18f] text-[#163300] text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer shrink-0"
               >
                 {subscribed ? (
                   <>
-                    <Check className="w-3.5 h-3.5 text-emerald-600" />
+                    <Check className="w-3.5 h-3.5 text-[#163300]" />
                     <span>Joined</span>
                   </>
                 ) : (
                   <>
                     <span>Subscribe</span>
-                    <ArrowRight className="w-3 h-3" />
+                    <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
                   </>
                 )}
               </button>
@@ -135,18 +135,18 @@ export const Footer: React.FC<FooterProps> = ({
         </div>
 
         {/* Bottom Bar: Copyright & Standards */}
-        <div className="mt-8 pt-6 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-3">
+        <div className="mt-12 pt-6 border-t border-[#054d28] flex flex-col sm:flex-row items-center justify-between text-xs text-[#e8ebe6]/70 gap-3">
           <div className="flex items-center gap-2">
             <span>© 2026 Terraframe Foundation.</span>
             <span>·</span>
             <span>Verified visual proof standards.</span>
           </div>
-          <div className="flex items-center gap-4 text-slate-400">
+          <div className="flex items-center gap-4 text-xs font-medium">
             <a href="#privacy" className="hover:text-white transition-colors">Privacy Policy</a>
             <a href="#legal" className="hover:text-white transition-colors">Legal Terms</a>
             <a 
               href="mailto:contact@terraframe.org" 
-              className="hover:text-white transition-colors font-mono text-[11px]"
+              className="text-[#9fe870] hover:underline"
             >
               contact@terraframe.org
             </a>

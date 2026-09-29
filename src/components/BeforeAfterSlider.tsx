@@ -75,23 +75,23 @@ export const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
     : activePair.milestoneAsset.cloudinary.secureUrl;
 
   return (
-    <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm mb-10">
+    <div className="bg-white border border-[#e8ebe6] rounded-[10px] sm:rounded-[28px] p-6 sm:p-8 shadow-xs mb-10">
       {/* Header with Pair Selector Chips */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-100">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[#e8ebe6]">
         <div>
-          <div className="flex items-center gap-2 mb-1">
-            <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 flex items-center gap-1">
-              <Sparkles className="w-3 h-3 text-emerald-600" />
+          <div className="flex items-center gap-2 mb-1.5">
+            <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[#e2f6d5] text-[#163300] flex items-center gap-1.5">
+              <Sparkles className="w-3 h-3 text-[#163300]" />
               Cloudinary AI Before/After Studio
             </span>
-            <span className="text-xs text-slate-500 font-mono">
+            <span className="text-xs text-[#6a6c6a] font-mono">
               Temporal Precision: ±{activePair.distanceDeltaMeters}m
             </span>
           </div>
-          <h2 className="text-xl font-bold text-slate-900 tracking-tight">
+          <h2 className="text-xl sm:text-2xl font-black text-[#0e0f0c] tracking-tight font-sans">
             {activePair.title}
           </h2>
-          <p className="text-xs text-slate-600 mt-0.5">
+          <p className="text-xs sm:text-sm text-[#454745] mt-0.5">
             {activePair.projectName} • {activePair.timeDeltaDays} days elapsed between baseline and milestone verification.
           </p>
         </div>
@@ -102,15 +102,15 @@ export const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
             <button
               key={pair.id}
               onClick={() => handleSelect(pair.id)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all flex items-center gap-1.5 ${
+              className={`px-3.5 py-1.5 rounded-full text-xs transition-all flex items-center gap-1.5 cursor-pointer ${
                 activePair.id === pair.id
-                  ? 'bg-slate-900 text-white shadow-2xs font-semibold'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200/70'
+                  ? 'bg-[#163300] text-white font-bold shadow-xs'
+                  : 'bg-[#e8ebe6] text-[#454745] hover:bg-[#dfe4dc] font-semibold'
               }`}
             >
               <span>{pair.projectName.split(' ')[0]}</span>
-              <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${
-                activePair.id === pair.id ? 'bg-emerald-500 text-white' : 'bg-slate-200 text-slate-700'
+              <span className={`text-[10px] px-2 py-0.2 rounded-full font-bold ${
+                activePair.id === pair.id ? 'bg-[#9fe870] text-[#163300]' : 'bg-[#d8dcd5] text-[#163300]'
               }`}>
                 +{pair.quantifiedImpact.deltaPercentage}%
               </span>
@@ -123,29 +123,29 @@ export const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
       <div className="mt-6">
         <div className="flex items-center justify-between mb-3 text-xs">
           <div className="flex items-center gap-2 font-medium">
-            <span className="text-slate-500">Comparing:</span>
-            <span className="bg-slate-100 text-slate-700 px-2 py-0.5 rounded font-mono">
+            <span className="text-[#6a6c6a]">Comparing:</span>
+            <span className="bg-[#e8ebe6] text-[#163300] px-2.5 py-0.5 rounded-full font-mono text-xs font-semibold">
               Baseline ({new Date(activePair.baselineAsset.telemetry.capturedAt).toLocaleDateString()})
             </span>
-            <ArrowRight className="w-3.5 h-3.5 text-slate-400" />
-            <span className="bg-emerald-50 text-emerald-800 px-2 py-0.5 rounded font-mono font-semibold">
+            <ArrowRight className="w-3.5 h-3.5 text-[#868685]" />
+            <span className="bg-[#9fe870] text-[#163300] px-2.5 py-0.5 rounded-full font-mono text-xs font-bold">
               Milestone ({new Date(activePair.milestoneAsset.telemetry.capturedAt).toLocaleDateString()})
             </span>
           </div>
 
           <div className="flex items-center gap-3">
-            <label className="flex items-center gap-1.5 cursor-pointer text-slate-600 select-none">
+            <label className="flex items-center gap-1.5 cursor-pointer text-[#454745] select-none text-xs font-medium">
               <input
                 type="checkbox"
                 checked={isWatermarked}
                 onChange={(e) => setIsWatermarked(e.target.checked)}
-                className="rounded border-slate-300 text-emerald-600 focus:ring-emerald-500"
+                className="rounded-[4px] accent-[#163300] cursor-pointer"
               />
-              <span className="text-[11px] font-medium">Cloudinary Cryptographic Proof Overlay</span>
+              <span>Cryptographic Proof Overlay</span>
             </label>
             <button
               onClick={() => setSliderPosition(50)}
-              className="text-slate-500 hover:text-slate-800 p-1 rounded hover:bg-slate-100"
+              className="text-[#6a6c6a] hover:text-[#163300] p-1 rounded-full hover:bg-[#e8ebe6] transition-colors cursor-pointer"
               title="Reset Slider to 50%"
             >
               <RefreshCw className="w-3.5 h-3.5" />
@@ -160,7 +160,7 @@ export const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
           onMouseUp={handleMouseUp}
           onMouseLeave={handleMouseUp}
           onTouchMove={handleTouchMove}
-          className="relative w-full aspect-[16/9] md:aspect-[21/9] max-h-[520px] rounded-xl overflow-hidden border border-slate-200 bg-slate-100 select-none cursor-ew-resize shadow-inner group"
+          className="relative w-full aspect-[16/9] md:aspect-[21/9] max-h-[520px] rounded-[10px] overflow-hidden border border-[#e8ebe6] bg-[#e8ebe6] select-none cursor-ew-resize shadow-inner group"
         >
           {/* Layer 1: "After" / Milestone Image (Full Width Underneath) */}
           <div 
@@ -168,10 +168,10 @@ export const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
             style={{ backgroundImage: `url(${milestoneUrl})` }}
           >
             {/* Top Right "After" Badge */}
-            <div className="absolute top-4 right-4 bg-emerald-600/90 backdrop-blur-md text-white px-3 py-1.5 rounded-lg text-xs font-semibold shadow-sm flex items-center gap-1.5">
-              <CheckCircle2 className="w-3.5 h-3.5" />
-              <span>Milestone Achieved (After)</span>
-              <span className="bg-emerald-700 px-1.5 py-0.5 rounded text-[10px] font-mono">
+            <div className="absolute top-4 right-4 bg-[#163300]/90 backdrop-blur-md text-white px-3 py-1.5 rounded-full text-xs font-semibold shadow-xs flex items-center gap-2">
+              <CheckCircle2 className="w-3.5 h-3.5 text-[#9fe870]" />
+              <span>Milestone Achieved</span>
+              <span className="bg-[#9fe870] text-[#163300] px-2 py-0.5 rounded-full text-[10px] font-mono font-bold">
                 {activePair.quantifiedImpact.milestoneValue} {activePair.quantifiedImpact.unit}
               </span>
             </div>
@@ -190,10 +190,10 @@ export const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
               }}
             >
               {/* Top Left "Before" Badge */}
-              <div className="absolute top-4 left-4 bg-slate-900/85 backdrop-blur-md text-white px-3 py-1.5 rounded-lg text-xs font-semibold shadow-sm flex items-center gap-1.5">
-                <Calendar className="w-3.5 h-3.5 text-slate-300" />
-                <span>Baseline State (Before)</span>
-                <span className="bg-slate-800 px-1.5 py-0.5 rounded text-[10px] font-mono">
+              <div className="absolute top-4 left-4 bg-[#0e0f0c]/90 backdrop-blur-md text-white px-3 py-1.5 rounded-full text-xs font-semibold shadow-xs flex items-center gap-2">
+                <Calendar className="w-3.5 h-3.5 text-[#e8ebe6]" />
+                <span>Baseline State</span>
+                <span className="bg-[#454745] text-white px-2 py-0.5 rounded-full text-[10px] font-mono font-semibold">
                   {activePair.quantifiedImpact.baselineValue} {activePair.quantifiedImpact.unit}
                 </span>
               </div>
@@ -208,41 +208,41 @@ export const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
             {/* Circular Handle Button */}
             <div
               onMouseDown={handleMouseDown}
-              className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-9 h-9 rounded-full bg-emerald-600 text-white border-2 border-white shadow-lg flex items-center justify-center pointer-events-auto cursor-ew-resize hover:scale-110 active:scale-95 transition-transform"
+              className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-9 h-9 rounded-full bg-[#9fe870] text-[#163300] border-2 border-white shadow-lg flex items-center justify-center pointer-events-auto cursor-ew-resize hover:scale-110 active:scale-95 transition-transform"
             >
               <Sliders className="w-4 h-4 rotate-90" />
             </div>
           </div>
 
           {/* Bottom Floating Delta Pill */}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-md px-4 py-2 rounded-xl border border-slate-200/90 shadow-md flex items-center gap-3 text-xs">
-            <div className="flex items-center gap-1.5 font-bold text-emerald-800">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-md px-4 py-2 rounded-full border border-[#e8ebe6] shadow-md flex items-center gap-3 text-xs">
+            <div className="flex items-center gap-1.5 font-bold text-[#163300]">
+              <span className="w-2 h-2 rounded-full bg-[#163300] animate-ping"></span>
               <span>{activePair.quantifiedImpact.metricName}:</span>
-              <span className="text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md font-mono text-sm">
+              <span className="text-[#163300] bg-[#9fe870] px-2.5 py-0.5 rounded-full font-mono text-sm font-black">
                 +{activePair.quantifiedImpact.deltaPercentage}%
               </span>
             </div>
-            <div className="h-4 w-px bg-slate-200 hidden sm:block"></div>
-            <div className="text-slate-500 text-[11px] hidden sm:flex items-center gap-1">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-              <span>Verified by {activePair.quantifiedImpact.verificationMethod}</span>
+            <div className="h-4 w-px bg-[#e8ebe6] hidden sm:block"></div>
+            <div className="text-[#6a6c6a] text-[11px] hidden sm:flex items-center gap-1 font-semibold">
+              <ShieldCheck className="w-3.5 h-3.5 text-[#163300]" />
+              <span>{activePair.quantifiedImpact.verificationMethod}</span>
             </div>
           </div>
         </div>
 
         {/* Range Input Slider Scrubber for Accessible / Keyboard Interaction */}
-        <div className="mt-3 px-1">
+        <div className="mt-3.5 px-1">
           <input
             type="range"
             min="0"
             max="100"
             value={sliderPosition}
             onChange={(e) => setSliderPosition(Number(e.target.value))}
-            className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-ew-resize accent-emerald-600"
+            className="w-full h-2 bg-[#e8ebe6] rounded-full appearance-none cursor-ew-resize accent-[#163300]"
             aria-label="Before and after split slider control"
           />
-          <div className="flex justify-between text-[11px] text-slate-600 mt-1 font-mono font-medium">
+          <div className="flex justify-between text-[11px] text-[#6a6c6a] mt-1 font-mono font-medium">
             <span>← Slide left to reveal After ({100 - Math.round(sliderPosition)}%)</span>
             <span>Slide right to reveal Before ({Math.round(sliderPosition)}%) →</span>
           </div>
@@ -250,28 +250,28 @@ export const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
       </div>
 
       {/* Verified Interventions & Narrative Breakdown */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-6 pt-6 border-t border-slate-100">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-6 pt-6 border-t border-[#e8ebe6]">
         {/* Story */}
         <div className="md:col-span-2">
-          <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-            <Info className="w-3.5 h-3.5 text-slate-400" />
+          <h3 className="text-xs font-bold text-[#163300] uppercase tracking-wider mb-2 flex items-center gap-1.5">
+            <Info className="w-3.5 h-3.5 text-[#163300]" />
             AI Verified Environmental Narrative
           </h3>
-          <p className="text-sm text-slate-700 leading-relaxed bg-slate-50 p-4 rounded-xl border border-slate-100">
+          <p className="text-sm text-[#454745] leading-relaxed bg-[#e8ebe6] p-4 rounded-[10px]">
             {activePair.summaryStory}
           </p>
         </div>
 
         {/* Interventions Checklist */}
         <div>
-          <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+          <h3 className="text-xs font-bold text-[#163300] uppercase tracking-wider mb-2">
             Verified On-Site Actions
           </h3>
-          <ul className="space-y-2 text-xs text-slate-600">
+          <ul className="space-y-2 text-xs text-[#454745]">
             {activePair.interventions.map((action, idx) => (
-              <li key={idx} className="flex items-start gap-2 bg-emerald-50/50 p-2 rounded-lg border border-emerald-100/60">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.2" />
-                <span className="font-medium text-slate-800">{action}</span>
+              <li key={idx} className="flex items-start gap-2 bg-[#e8ebe6] p-2.5 rounded-[10px]">
+                <CheckCircle2 className="w-4 h-4 text-[#163300] shrink-0 mt-0.5" />
+                <span className="font-semibold text-[#163300]">{action}</span>
               </li>
             ))}
           </ul>
