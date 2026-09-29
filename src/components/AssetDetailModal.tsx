@@ -15,31 +15,62 @@ import {
   Layers,
   FileCode,
   Lock,
-  ArrowUpRight
+  ArrowUpRight,
+  Wand2,
+  Crop,
+  Sliders,
+  Scissors
 } from 'lucide-react';
-import { getWatermarkedProof, getHeroBanner, getGalleryThumbnail } from '@/lib/cloudinary';
+import { 
+  getWatermarkedProof, 
+  getHeroBanner, 
+  getSquareThumbnail,
+  getAiRestoredAsset,
+  getAiIsolatedSubject
+} from '@/lib/cloudinary';
 
 interface AssetDetailModalProps {
   asset: EvidenceAsset | null;
   onClose: () => void;
 }
 
+export type TransformVariant = 
+  | 'watermark' 
+  | 'focalCrop' 
+  | 'squareCrop' 
+  | 'aiImprove' 
+  | 'aiRestore' 
+  | 'standard';
+
 export const AssetDetailModal: React.FC<AssetDetailModalProps> = ({
   asset,
   onClose
 }) => {
   const [activeTab, setActiveTab] = useState<'provenance' | 'ai' | 'cloudinary'>('provenance');
-  const [transformVariant, setTransformVariant] = useState<'standard' | 'watermark' | 'focalCrop'>('watermark');
+  const [transformVariant, setTransformVariant] = useState<TransformVariant>('watermark');
   const [copiedHash, setCopiedHash] = useState(false);
   const [copiedUrl, setCopiedUrl] = useState(false);
 
   if (!asset) return null;
 
   let displayImageUrl = asset.cloudinary.secureUrl;
+  let pipelineDescription = 'Direct high-fidelity original field capture';
+
   if (transformVariant === 'watermark') {
     displayImageUrl = asset.cloudinary.watermarkedUrl;
+    pipelineDescription = 'l_text:Arial_18_bold:VERITERRA... • Cryptographic verified proof overlay';
   } else if (transformVariant === 'focalCrop') {
     displayImageUrl = asset.cloudinary.smartCroppedUrl;
+    pipelineDescription = 'c_fill,ar_16:9,g_auto • AI subject gravity landscape framing';
+  } else if (transformVariant === 'squareCrop') {
+    displayImageUrl = getSquareThumbnail(asset.cloudinary.secureUrl);
+    pipelineDescription = 'c_fill,ar_1:1,g_auto • Social media / card 1:1 auto-crop';
+  } else if (transformVariant === 'aiImprove') {
+    displayImageUrl = getAiRestoredAsset(asset.cloudinary.secureUrl);
+    pipelineDescription = 'e_improve,f_auto,q_auto • AI adaptive contrast and lighting restoration';
+  } else if (transformVariant === 'aiRestore') {
+    displayImageUrl = getAiRestoredAsset(asset.cloudinary.secureUrl);
+    pipelineDescription = 'e_gen_restore,f_auto,q_auto • Generative sensor denoising and artifact repair';
   }
 
   const handleCopyHash = () => {
@@ -89,7 +120,7 @@ export const AssetDetailModal: React.FC<AssetDetailModalProps> = ({
 
         {/* Modal Body: Left Image & Right Telemetry */}
         <div className="grid grid-cols-1 lg:grid-cols-12 flex-1 overflow-y-auto">
-          {/* Left Column: Visual & Cloudinary Playground (7 cols) */}
+          {/* Left Column: Visual & Photocrate Transformation Playground (7 cols) */}
           <div className="lg:col-span-7 p-6 border-b lg:border-b-0 lg:border-r border-slate-200 flex flex-col justify-between bg-slate-50/40">
             <div>
               {/* Image Preview Box */}
@@ -97,56 +128,97 @@ export const AssetDetailModal: React.FC<AssetDetailModalProps> = ({
                 <img
                   src={displayImageUrl}
                   alt={asset.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-all duration-300"
                 />
 
                 {/* Cloudinary Live Transformation Badge */}
                 <div className="absolute top-3 left-3 bg-slate-900/85 backdrop-blur-md text-white text-[11px] px-3 py-1 rounded-lg flex items-center gap-1.5 font-mono shadow-sm">
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                  <span>Transform: {transformVariant}</span>
+                  <span>Pipeline: {transformVariant}</span>
                 </div>
               </div>
 
-              {/* Transformation Presets Switcher */}
-              <div className="mt-4 flex items-center justify-between gap-2 bg-white p-2 rounded-xl border border-slate-200 shadow-2xs">
-                <span className="text-xs font-semibold text-slate-500 ml-1">CDN Pipeline:</span>
-                <div className="flex items-center gap-1.5">
+              {/* Photocrate-inspired Transformation Presets Selector */}
+              <div className="mt-4 bg-white p-3 rounded-xl border border-slate-200 shadow-2xs space-y-2">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="font-semibold text-slate-700 flex items-center gap-1">
+                    <Wand2 className="w-3.5 h-3.5 text-emerald-600" />
+                    Cloudinary Transformation Studio:
+                  </span>
+                  <span className="text-[11px] font-mono text-slate-400">Photocrate Pipeline</span>
+                </div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5">
                   <button
                     onClick={() => setTransformVariant('watermark')}
-                    className={`px-2.5 py-1 text-xs font-medium rounded-lg transition-all ${
+                    className={`px-2 py-1.5 text-[11px] font-medium rounded-lg text-left transition-all ${
                       transformVariant === 'watermark'
-                        ? 'bg-emerald-600 text-white shadow-2xs'
-                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                        ? 'bg-emerald-600 text-white shadow-2xs font-semibold'
+                        : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                     }`}
                   >
                     Proof Watermark
                   </button>
                   <button
                     onClick={() => setTransformVariant('focalCrop')}
-                    className={`px-2.5 py-1 text-xs font-medium rounded-lg transition-all ${
+                    className={`px-2 py-1.5 text-[11px] font-medium rounded-lg text-left transition-all ${
                       transformVariant === 'focalCrop'
-                        ? 'bg-emerald-600 text-white shadow-2xs'
-                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                        ? 'bg-emerald-600 text-white shadow-2xs font-semibold'
+                        : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                     }`}
                   >
                     16:9 Smart Focal
                   </button>
                   <button
+                    onClick={() => setTransformVariant('squareCrop')}
+                    className={`px-2 py-1.5 text-[11px] font-medium rounded-lg text-left transition-all ${
+                      transformVariant === 'squareCrop'
+                        ? 'bg-emerald-600 text-white shadow-2xs font-semibold'
+                        : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                    }`}
+                  >
+                    1:1 Square Crop
+                  </button>
+                  <button
+                    onClick={() => setTransformVariant('aiImprove')}
+                    className={`px-2 py-1.5 text-[11px] font-medium rounded-lg text-left transition-all ${
+                      transformVariant === 'aiImprove'
+                        ? 'bg-emerald-600 text-white shadow-2xs font-semibold'
+                        : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                    }`}
+                  >
+                    AI Auto-Improve
+                  </button>
+                  <button
+                    onClick={() => setTransformVariant('aiRestore')}
+                    className={`px-2 py-1.5 text-[11px] font-medium rounded-lg text-left transition-all ${
+                      transformVariant === 'aiRestore'
+                        ? 'bg-emerald-600 text-white shadow-2xs font-semibold'
+                        : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                    }`}
+                  >
+                    Generative Restore
+                  </button>
+                  <button
                     onClick={() => setTransformVariant('standard')}
-                    className={`px-2.5 py-1 text-xs font-medium rounded-lg transition-all ${
+                    className={`px-2 py-1.5 text-[11px] font-medium rounded-lg text-left transition-all ${
                       transformVariant === 'standard'
-                        ? 'bg-emerald-600 text-white shadow-2xs'
-                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                        ? 'bg-emerald-600 text-white shadow-2xs font-semibold'
+                        : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                     }`}
                   >
                     Original High-Res
                   </button>
                 </div>
+
+                <p className="text-[10px] text-slate-500 font-mono pt-1">
+                  Active params: {pipelineDescription}
+                </p>
               </div>
             </div>
 
             {/* Cloudinary Source URL Actions */}
-            <div className="mt-6 pt-4 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+            <div className="mt-4 pt-3 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
               <div className="flex items-center gap-2 text-slate-600 font-mono text-[11px] truncate max-w-xs">
                 <span className="font-semibold text-slate-800">Cloudinary:</span>
                 <span className="truncate">{asset.cloudinary.publicId}</span>
@@ -347,19 +419,20 @@ export const AssetDetailModal: React.FC<AssetDetailModalProps> = ({
             {activeTab === 'cloudinary' && (
               <div className="space-y-3 text-xs">
                 <div className="bg-slate-900 text-white p-4 rounded-xl font-mono text-[11px] space-y-2">
-                  <div className="text-emerald-400 font-semibold"># Cloudinary Transformation URL</div>
+                  <div className="text-emerald-400 font-semibold"># Active Cloudinary Transformation URL</div>
                   <div className="text-slate-300 break-all bg-slate-800/80 p-2.5 rounded border border-slate-700">
-                    https://res.cloudinary.com/veriterra-demo/image/upload/c_fill,g_auto,f_auto,q_auto/{asset.cloudinary.publicId}
+                    {displayImageUrl}
                   </div>
                 </div>
 
                 <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-2 text-[11px]">
-                  <h4 className="font-semibold text-slate-800">Dynamic Transformation Pipeline:</h4>
+                  <h4 className="font-semibold text-slate-800">Dynamic Transformation Pipeline (Photocrate Engine):</h4>
                   <ul className="space-y-1.5 text-slate-600">
-                    <li><strong className="text-slate-800">f_auto:</strong> Automatically selects modern AVIF or WebP based on browser.</li>
-                    <li><strong className="text-slate-800">q_auto:</strong> Perceptual quality compression reducing payload by ~65%.</li>
-                    <li><strong className="text-slate-800">g_auto:</strong> AI subject gravity automatically pins focal point on key environmental interventions.</li>
-                    <li><strong className="text-slate-800">l_text:...:</strong> Cryptographic verification watermark rendered server-side via CDN layer.</li>
+                    <li><strong className="text-slate-800">f_auto:</strong> Automatically serves AVIF/WebP based on visitor browser capability.</li>
+                    <li><strong className="text-slate-800">q_auto:</strong> Perceptual quality compression reducing data weight by 60-70%.</li>
+                    <li><strong className="text-slate-800">e_improve &amp; e_gen_restore:</strong> AI auto-enhancement and sensor restoration for field cameras.</li>
+                    <li><strong className="text-slate-800">g_auto &amp; c_fill:</strong> AI subject-gravity automated framing on environmental interventions.</li>
+                    <li><strong className="text-slate-800">l_text:...:</strong> Cryptographic verification proof badge rendered dynamically on the CDN.</li>
                   </ul>
                 </div>
               </div>
@@ -370,7 +443,7 @@ export const AssetDetailModal: React.FC<AssetDetailModalProps> = ({
         {/* Modal Footer */}
         <div className="px-6 py-3.5 bg-slate-50 border-t border-slate-200 flex items-center justify-between">
           <div className="text-xs text-slate-500">
-            Audit Status: <span className="font-semibold text-emerald-700">Verified by Cloudinary Ingest Node</span>
+            Powered by <span className="font-semibold text-emerald-700">Cloudinary Community Photocrate Engine</span>
           </div>
           <button
             onClick={onClose}

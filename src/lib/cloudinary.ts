@@ -1,5 +1,6 @@
 /**
  * Cloudinary Dynamic Media URL Builder & Pipeline Helpers
+ * Inspired by Cloudinary Community Photocrate architecture
  * Leverages Cloudinary's dynamic CDN transformations for environmental media.
  */
 
@@ -15,6 +16,9 @@ export interface TransformationOptions {
   format?: 'auto' | 'webp' | 'avif' | 'jpg' | 'png';
   watermarkText?: string;
   effect?: string;
+  restore?: boolean;
+  improve?: boolean;
+  removeBackground?: boolean;
 }
 
 /**
@@ -24,7 +28,6 @@ export function buildCloudinaryUrl(
   publicIdOrUrl: string,
   options: TransformationOptions = {}
 ): string {
-  // If it's already an external HTTP URL (e.g. Unsplash demo asset), wrap with Cloudinary Fetch or direct optimize
   const isHttp = publicIdOrUrl.startsWith('http://') || publicIdOrUrl.startsWith('https://');
 
   const {
@@ -37,9 +40,23 @@ export function buildCloudinaryUrl(
     format = 'auto',
     watermarkText,
     effect,
+    restore,
+    improve,
+    removeBackground,
   } = options;
 
   const transformations: string[] = [];
+
+  // Photocrate AI Enhancements
+  if (removeBackground) {
+    transformations.push('e_background_removal');
+  }
+  if (restore) {
+    transformations.push('e_gen_restore');
+  }
+  if (improve) {
+    transformations.push('e_improve');
+  }
 
   // Cropping and Sizing
   if (aspectRatio) {
@@ -78,7 +95,6 @@ export function buildCloudinaryUrl(
   const transformString = transformations.join(',');
 
   if (isHttp) {
-    // If external URL, pass through Cloudinary's dynamic fetch pipeline
     return `https://res.cloudinary.com/${DEFAULT_CLOUD_NAME}/image/fetch/${transformString}/${encodeURIComponent(
       publicIdOrUrl
     )}`;
@@ -87,9 +103,6 @@ export function buildCloudinaryUrl(
   return `https://res.cloudinary.com/${DEFAULT_CLOUD_NAME}/image/upload/${transformString}/${publicIdOrUrl}`;
 }
 
-/**
- * Returns optimized thumbnail for gallery grids (4:3 ratio)
- */
 export function getGalleryThumbnail(sourceUrl: string): string {
   return buildCloudinaryUrl(sourceUrl, {
     width: 600,
@@ -101,9 +114,6 @@ export function getGalleryThumbnail(sourceUrl: string): string {
   });
 }
 
-/**
- * Returns optimized wide card (16:9 ratio)
- */
 export function getHeroBanner(sourceUrl: string): string {
   return buildCloudinaryUrl(sourceUrl, {
     width: 1200,
@@ -116,9 +126,18 @@ export function getHeroBanner(sourceUrl: string): string {
   });
 }
 
-/**
- * Returns verified watermarked asset preview
- */
+export function getSquareThumbnail(sourceUrl: string): string {
+  return buildCloudinaryUrl(sourceUrl, {
+    width: 600,
+    height: 600,
+    crop: 'fill',
+    gravity: 'auto',
+    aspectRatio: '1:1',
+    quality: 'auto',
+    format: 'auto',
+  });
+}
+
 export function getWatermarkedProof(sourceUrl: string, badgeText: string = 'VERITERRA VERIFIED PROOF'): string {
   return buildCloudinaryUrl(sourceUrl, {
     width: 1000,
@@ -128,15 +147,21 @@ export function getWatermarkedProof(sourceUrl: string, badgeText: string = 'VERI
   });
 }
 
-/**
- * Simulates a Cloudinary dynamic split-layer comparison
- */
-export function getSplitComparisonUrl(baselineUrl: string, milestoneUrl: string): string {
-  // In production, Cloudinary overlays the second image with a 50% mask (e.g., l_fetch:.../w_0.5,c_crop)
-  return buildCloudinaryUrl(milestoneUrl, {
-    width: 1200,
+export function getAiRestoredAsset(sourceUrl: string): string {
+  return buildCloudinaryUrl(sourceUrl, {
+    width: 1000,
+    restore: true,
+    improve: true,
     quality: 'auto',
     format: 'auto',
-    watermarkText: 'VERITERRA • BEFORE / AFTER AUDIT',
+  });
+}
+
+export function getAiIsolatedSubject(sourceUrl: string): string {
+  return buildCloudinaryUrl(sourceUrl, {
+    width: 1000,
+    removeBackground: true,
+    quality: 'auto',
+    format: 'auto',
   });
 }
