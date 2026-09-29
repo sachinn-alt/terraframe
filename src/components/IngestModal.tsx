@@ -12,10 +12,13 @@ import {
   ShieldCheck,
   FileImage,
   ArrowRight,
-  Loader2
+  Loader2,
+  Sliders
 } from 'lucide-react';
 import { getGalleryThumbnail, getHeroBanner, getWatermarkedProof } from '@/lib/cloudinary';
 import { getDeterministicEnvironmentalAnalysis } from '@/lib/gemini';
+import { CloudinaryUploadWidget } from './CloudinaryUploadWidget';
+import { CloudinaryUploadWidgetResults } from 'next-cloudinary';
 
 interface IngestModalProps {
   isOpen: boolean;
@@ -76,6 +79,7 @@ export const IngestModal: React.FC<IngestModalProps> = ({
   const [milestoneType, setMilestoneType] = useState<MilestoneType>('milestone_achieved');
   const [isProcessing, setIsProcessing] = useState(false);
   const [processingStep, setProcessingStep] = useState<string>('');
+  const [uploadMethod, setUploadMethod] = useState<'preset' | 'widget' | 'url'>('preset');
 
   if (!isOpen) return null;
 
@@ -85,12 +89,23 @@ export const IngestModal: React.FC<IngestModalProps> = ({
     setDescription(preset.description);
     setImageUrl(preset.url);
     setMilestoneType(preset.milestoneType);
+    setUploadMethod('preset');
+  };
+
+  const handleWidgetSuccess = (result: CloudinaryUploadWidgetResults) => {
+    if (result.info && typeof result.info === 'object' && 'secure_url' in result.info) {
+      const info = result.info as { secure_url: string; original_filename?: string; public_id?: string };
+      setImageUrl(info.secure_url);
+      setTitle(info.original_filename || 'Cloudinary Ingested Asset');
+      setDescription('Uploaded directly via official next-cloudinary Upload Widget.');
+      setUploadMethod('url');
+    }
   };
 
   const handleUploadSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!imageUrl.trim()) {
-      alert('Please provide an image URL or choose a sample preset.');
+      alert('Please provide an image URL, choose a preset, or upload via Cloudinary widget.');
       return;
     }
 
@@ -180,7 +195,12 @@ export const IngestModal: React.FC<IngestModalProps> = ({
               <UploadCloud className="w-5 h-5" />
             </span>
             <div>
-              <h3 className="text-base font-bold text-slate-900">Ingest Field Media Evidence</h3>
+              <div className="flex items-center gap-2">
+                <h3 className="text-base font-bold text-slate-900">Ingest Field Media Evidence</h3>
+                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800">
+                  next-cloudinary
+                </span>
+              </div>
               <p className="text-xs text-slate-500 font-medium">
                 Cloudinary Asset Ingestion, EXIF Extraction & Multimodal AI Verification
               </p>
@@ -196,30 +216,73 @@ export const IngestModal: React.FC<IngestModalProps> = ({
 
         {/* Modal Form */}
         <form onSubmit={handleUploadSubmit} className="p-6 space-y-4 max-h-[80vh] overflow-y-auto">
-          {/* Quick Demo Presets */}
-          <div>
-            <span className="text-xs font-semibold text-slate-600 mb-1.5 flex items-center gap-1">
-              <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
-              Quick Judge Presets (Click to Auto-fill Field Asset):
-            </span>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-              {PRESET_UPLOADS.map((preset, idx) => (
-                <button
-                  key={idx}
-                  type="button"
-                  onClick={() => handleApplyPreset(preset)}
-                  className="p-2.5 rounded-xl border border-slate-200 hover:border-emerald-500 bg-slate-50 hover:bg-emerald-50/50 text-left transition-all group"
-                >
-                  <span className="text-[11px] font-bold text-slate-800 group-hover:text-emerald-800 line-clamp-1">
-                    {preset.name}
-                  </span>
-                  <span className="text-[10px] text-slate-500 block truncate mt-0.5">
-                    {preset.location}
-                  </span>
-                </button>
-              ))}
-            </div>
+          {/* Method Tabs */}
+          <div className="flex items-center gap-2 bg-slate-100 p-1 rounded-xl text-xs font-semibold">
+            <button
+              type="button"
+              onClick={() => setUploadMethod('preset')}
+              className={`flex-1 py-1.5 rounded-lg transition-all ${
+                uploadMethod === 'preset' ? 'bg-white text-emerald-800 shadow-2xs' : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              1. Demo Field Presets
+            </button>
+            <button
+              type="button"
+              onClick={() => setUploadMethod('widget')}
+              className={`flex-1 py-1.5 rounded-lg transition-all ${
+                uploadMethod === 'widget' ? 'bg-white text-emerald-800 shadow-2xs' : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              2. Next-Cloudinary Widget
+            </button>
+            <button
+              type="button"
+              onClick={() => setUploadMethod('url')}
+              className={`flex-1 py-1.5 rounded-lg transition-all ${
+                uploadMethod === 'url' ? 'bg-white text-emerald-800 shadow-2xs' : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              3. Direct Image URL
+            </button>
           </div>
+
+          {/* Option 1: Quick Demo Presets */}
+          {uploadMethod === 'preset' && (
+            <div>
+              <span className="text-xs font-semibold text-slate-600 mb-1.5 flex items-center gap-1">
+                <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+                Quick Judge Presets (Click to Auto-fill Field Asset):
+              </span>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                {PRESET_UPLOADS.map((preset, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => handleApplyPreset(preset)}
+                    className="p-2.5 rounded-xl border border-slate-200 hover:border-emerald-500 bg-slate-50 hover:bg-emerald-50/50 text-left transition-all group"
+                  >
+                    <span className="text-[11px] font-bold text-slate-800 group-hover:text-emerald-800 line-clamp-1">
+                      {preset.name}
+                    </span>
+                    <span className="text-[10px] text-slate-500 block truncate mt-0.5">
+                      {preset.location}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Option 2: Next-Cloudinary Upload Widget */}
+          {uploadMethod === 'widget' && (
+            <CloudinaryUploadWidget
+              onSuccess={handleWidgetSuccess}
+              folder="veriterra/field-evidence"
+              tags={['veriterra', 'field-proof']}
+              buttonText="Launch Cloudinary Upload Widget"
+            />
+          )}
 
           {/* Project Target */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -310,7 +373,7 @@ export const IngestModal: React.FC<IngestModalProps> = ({
               <li>Generates SHA-256 cryptographic hash to guarantee anti-tampering.</li>
               <li>Extracts GPS, elevation, and camera model telemetry.</li>
               <li>Calls Google Gemini Vision for environmental feature segmentation.</li>
-              <li>Applies Cloudinary dynamic watermarking and responsive delivery.</li>
+              <li>Powered by <strong className="text-emerald-900">next-cloudinary</strong> dynamic CDN transformations.</li>
             </ul>
           </div>
 
