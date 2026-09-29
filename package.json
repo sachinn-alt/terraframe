@@ -6,7 +6,8 @@
     "dev": "node \"./node_modules/next/dist/bin/next\" dev",
     "build": "node \"./node_modules/next/dist/bin/next\" build",
     "start": "node \"./node_modules/next/dist/bin/next\" start",
-    "lint": "node \"./node_modules/next/dist/bin/next\" lint"
+    "lint": "node \"./node_modules/next/dist/bin/next\" lint",
+    "test:e2e": "node \"./node_modules/@playwright/test/cli.js\" test"
   },
   "dependencies": {
     "cloudinary": "^2.11.0",
@@ -19,10 +20,12 @@
     "tailwind-merge": "^3.0.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@tailwindcss/postcss": "^4.0.0",
     "@types/node": "^20.17.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
+    "playwright": "^1.63.0",
     "postcss": "^8.4.49",
     "tailwindcss": "^4.0.0",
     "typescript": "^5.7.0"
